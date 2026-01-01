@@ -1,183 +1,178 @@
-import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class RockPaperScissors extends Player {
-
-    boolean stillRunning = true;
-
-    int draw = 0;
-    int playerWins = 0;
-    int playerLosses = 0;
-    int cpuWins = 0;
-    int cpuLosses = 0;
-    int gameRound = 0;
+public class RockPaperScissors {
 
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
 
-    public RockPaperScissors() {
+    String[] rps = {"🪨", "📃", "✂️"};
+
+    String[] robots = {
+            "🧬 Axiom",
+            "🌌 Orion",
+            "🛰️ Zenith",
+            "⚙️ Helix",
+            "🔥 Vortex",
+            "🛡️ Sentinel",
+            "🧿 Cypher",
+            "💠 Neutrino",
+            "🪐 Atlas",
+            "⚔️ Omega-X"
+    };
+
+    String[] players = {
+            "🧑‍🚀 Maverick",
+            "🔥 Blaze",
+            "⚡ Ace",
+            "🎯 Striker",
+            "🌀 Phantom",
+            "🧠 Nova",
+            "🏹 Archer",
+            "💥 Raptor",
+            "🌟 Titan",
+            "🎮 Shadow"
+    };
+
+    String player = players[random.nextInt(players.length)];
+    String robot = robots[random.nextInt(robots.length)];
+
+    int numOfRounds = 3;
+    int currRound = 1;
+    int roundWin = 25;
+    int gameWinnerPts = 75;
+    int playerScore = 0;
+    int robotScore = 0;
+
+    void rpsMsg() {
+        System.out.println("🪨  vs  📄  vs  ✂️");
+        System.out.println("*******************");
+        System.out.println("ROCK PAPER SCISSORS");
+        System.out.println("*******************");
+        System.out.println("Best of 3 Rounds\n");
+        System.out.println(player + " (YOU) vs " + robot + " (CPU)");
     }
 
-    public RockPaperScissors(String playerName, double playerWins, double playerLosses, double totalWinsLosses) {
-        super(playerName, playerWins, playerLosses, totalWinsLosses);
+    void gamePlayers() {
+        System.out.println(player + " vs. " + robot);
     }
 
-    String[] emojis = {"🚀", "👽", "💵", "⚡", "️⭐", "️👑", "⚔️"};
-    //String[] emojiMoves = {"🪨","📃","✂️"};
-
-    void menu() {
-        System.out.println("- - - - - - - - - - - -");
-        System.out.println("Rock🪨Paper📃Sci️ssors✂️");
-        System.out.println("- - - - - - - - - - - -");
-
-        System.out.println("press 1 -> How to Play");
-        System.out.println("press 2 -> Create Player");
-        System.out.println("press 3 -> Play Game");
-        System.out.println("press 4 -> Exit");
-    }
-
-    void gamePlay() {
-
-        HashMap<Integer, String> emojiMoves = new HashMap<>();
-        emojiMoves.put(1, "🪨");
-        emojiMoves.put(2, "📄");
-        emojiMoves.put(3, "✂️");
-
-        System.out.print("\nenter number (1-4): ");
-        int userChoice = scanner.nextInt();
-
+    void startGame() {
+        gamePlayers();
         while (true) {
-            if (userChoice < 1 || userChoice > 4) {
-                System.out.println("invalid entry");
-            }
+            System.out.println("\n- - - - ROUND " + currRound + " - - - -");
+            System.out.print("enter 1| 🪨 rock 2| 📃 paper 3| ✂️ scissors: ");
 
-            switch (userChoice) {
-                case 1 -> {
-                    howToPlay();
-                    System.out.print("\nready to play? (y/n): ");
-                    String readyToPlay = scanner.next();
+            try {
+                int robotMove = random.nextInt(1, 4);
+                int playerMove = scanner.nextInt();
 
-                    if (readyToPlay.equalsIgnoreCase("y") || readyToPlay.equalsIgnoreCase("yes")) {
-                        createPlayer();
+                if (playerMove < 1 || playerMove > 3) {
+                    System.out.println("invalid entry (please choose a number between 1-3)");
+                } else {
+                    System.out.println("\n- - - - results - - - -");
+                    System.out.println(player + " chose " + rps[playerMove - 1]);
+                    System.out.println(robot + " chose " + rps[robotMove - 1]);
+                    System.out.println("- - - - - - - - - - -");
 
-                        while (gameRound != 3) {
-                            gameRound++; // counts number of games before determining winner
-                            System.out.print("choose (1) -> 🪨 Rock (2) -> 📃 Paper (3) -> ✂️: ");
-                            int userPick = scanner.nextInt();
+                    currRound++; // increment round
 
-                            while (userPick < 1 || userPick > 3) {
-                                System.out.println("invalid entry");
-                            }
-
-                            int cpuPick = random.nextInt(1, 4);
-
-                            switch (userPick) {
-                                case 1 -> {
-                                    // rock game logic
-                                    if (emojiMoves.get(userPick).equals("🪨") && emojiMoves.get(cpuPick).equals("🪨")) {
-                                        System.out.println("draw");
-                                        draw++;
-                                        System.out.println("You -> " + emojiMoves.get(userPick) + " | Cpu -> " + emojiMoves.get(cpuPick));
-                                    } else if (emojiMoves.get(userPick).equals("🪨") && emojiMoves.get(cpuPick).equals("📃")) {
-                                        System.out.println("paper covers rock");
-                                        System.out.println("Cpu wins!");
-                                        cpuWins++;
-                                        playerLosses++;
-                                        System.out.println("You -> " + emojiMoves.get(userPick) + " | Cpu -> " + emojiMoves.get(cpuPick));
-                                    } else if (emojiMoves.get(userPick).equals("🪨") && emojiMoves.get(cpuPick).equals("✂️")) {
-                                        System.out.println("rock beats scissors");
-                                        System.out.println("You win!");
-                                        playerWins++;
-                                        cpuLosses++;
-                                        System.out.println("You -> " + emojiMoves.get(userPick) + " | Cpu -> " + emojiMoves.get(cpuPick));
-                                    }
-                                }
-
-                                case 2 -> {
-                                    // paper game logic
-                                    if (emojiMoves.get(userPick).equals("📃") && emojiMoves.get(cpuPick).equals("📃")) {
-                                        System.out.println("draw");
-                                        draw++;
-                                    } else if (emojiMoves.get(userPick).equals("📃") && emojiMoves.get(cpuPick).equals("🪨")) {
-                                        System.out.println("paper covers rock");
-                                        System.out.println("You win!");
-                                        playerWins++;
-                                        cpuLosses++;
-                                    } else if (emojiMoves.get(userPick).equals("📃") && emojiMoves.get(cpuPick).equals("✂️")) {
-                                        System.out.println("scissors cut paper");
-                                        System.out.println("You loss!");
-                                        cpuWins++;
-                                        playerLosses++;
-                                    }
-                                }
-
-                                case 3 -> {
-                                    // scissors game logic
-                                    if (emojiMoves.get(userPick).equals("✂️") && emojiMoves.get(cpuPick).equals("✂️")) {
-                                        System.out.println("draw");
-                                        draw++;
-                                    } else if (emojiMoves.get(userPick).equals("✂️") && emojiMoves.get(cpuPick).equals("🪨")) {
-                                        System.out.println("rock beats scissors");
-                                        System.out.println("Cpu wins!");
-                                        cpuWins++;
-                                        playerLosses++;
-                                    } else if (emojiMoves.get(userPick).equals("✂️") && emojiMoves.get(cpuPick).equals("📃")) {
-                                        System.out.println("scissors cut paper");
-                                        System.out.println("You win!");
-                                        playerWins++;
-                                        cpuLosses++;
-                                    }
-                                }
-                                default -> {
-                                    System.out.println("invalid entry");
-                                }
-                            }
-                        }
-                    } else if (readyToPlay.equalsIgnoreCase("n") || readyToPlay.equalsIgnoreCase("no")) {
-                        return;
-                    } else {
-                        System.out.println("invalid entry");
+                    for (int i = 0; i <= numOfRounds; i++) {
+                        // check winner logic
+                        checkWinner(playerMove, robotMove);
                     }
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("invalid input");
             }
         }
     }
 
-    void playGame() {
-        menu();
-        gamePlay();
-    }
+    void checkWinner(int playerMove, int cpuMove) {
 
-    void createPlayer() {
+        int result = (playerMove * 10 + cpuMove);
 
-        String randomCharacter = emojis[random.nextInt(emojis.length)];
-        System.out.println("\n<- - - " + randomCharacter + " Create Player " + randomCharacter + " - - ->");
-        System.out.print("enter name: ");
-        scanner.nextLine();
-        String userName = scanner.nextLine();
-
-        if (userName.length() > 15) {
-            System.out.println("invalid username");
+        if (playerScore > robotScore) {
+            System.out.println("-------------");
+            System.out.println("WINNER -> " + player);
+        } else if (robotScore > playerScore) {
+            System.out.println("-------------");
+            System.out.println("WINNER -> " + robot);
         } else {
-            setPlayerName(userName);
-            System.out.println(randomCharacter + " " + userName + " " + randomCharacter);
-
-
+            System.out.println("winner has yet to be determined... keep playing!");
         }
-    }
 
-    void howToPlay() {
-        System.out.println(
-                "\nHow to Play:\n" +
-                        "1. When prompted, enter rock, paper, or scissors.\n" +
-                        "2. The computer will randomly choose its move.\n" +
-                        "3. The program compares both choices and determines the winner:\n" +
-                        "   - Rock beats Scissors\n" +
-                        "   - Paper beats Rock\n" +
-                        "   - Scissors beats Paper\n" +
-                        "4. The result is displayed instantly, and you can play again or exit."
-        );
+        switch (result) {
+            case 11, 22, 33 -> {
+                System.out.println("----");
+                System.out.println("tie");
+                System.out.println("----");
+                System.out.println("no winner");
+                System.out.println("0 points");
+            }
+            case 21 -> {
+                System.out.println("-------------");
+                System.out.println("📄 covers 🪨");
+                System.out.println("-------------");
+                System.out.println(player + " wins!");
+                System.out.println("-------------");
+                playerScore += roundWin;
+                System.out.println(playerScore + "+ points");
+            }
+            case 13 -> {
+                System.out.println("-------------");
+                System.out.println("🪨 beats ✂️");
+                System.out.println("-------------");
+                System.out.println(player + " wins!");
+                System.out.println("-------------");
+                playerScore += roundWin;
+                System.out.println(playerScore + "+ points");
+            }
+            case 32 -> {
+                System.out.println("-------------");
+                System.out.println("✂️cuts 📄");
+                System.out.println("-------------");
+                System.out.println(player + " wins!");
+                System.out.println("-------------");
+                playerScore += roundWin;
+                System.out.println(playerScore + "+ points");
+            }
+            case 31 -> {
+                System.out.println("-------------");
+                System.out.println("🪨 beats ✂️");
+                System.out.println("-------------");
+                System.out.println(robot + " wins!");
+                System.out.println("-------------");
+                robotScore += roundWin;
+                System.out.println(robotScore + "+ points");
+            }
+            case 12 -> {
+                System.out.println("-------------");
+                System.out.println("📄 covers 🪨");
+                System.out.println("-------------");
+                System.out.println(robot + " wins!");
+                System.out.println("-------------");
+                robotScore += roundWin;
+                System.out.println(robotScore + "+ points");
+            }
+            case 23 -> {
+                System.out.println("-------------");
+                System.out.println("✂️cuts 📄");
+                System.out.println("-------------");
+                System.out.println(robot + " wins!");
+                System.out.println("-------------");
+                robotScore += roundWin;
+                System.out.println(robotScore + "+ points");
+            }
+            default -> {
+                System.out.println("-------------");
+                System.out.println("no winner determined yet... keep playing!");
+            }
+        }
+        playerScore++;
+        robotScore++;
+        System.out.println(player + ": " + playerScore + " pts.");
+        System.out.println(robot + ": " + robotScore + " pts.");
     }
-
 }
