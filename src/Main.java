@@ -9,7 +9,7 @@ void main() {
     rockPaperScissors.rpsMsg();
 
     do {
-        System.out.print("\nReady to play (y/n): ");
+        System.out.print("\nReady to play (yes/no): ");
         String userPlay = scanner.nextLine().toLowerCase();
 
         if (userPlay.equals("y") || userPlay.equals("yes")) {
