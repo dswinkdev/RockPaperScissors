@@ -10,16 +10,16 @@ public class RockPaperScissors {
     String[] rps = {"🪨", "📃", "✂️"};
 
     String[] robots = {
-            "🧬 Axiom",
-            "🌌 Orion",
-            "🛰️ Zenith",
-            "⚙️ Helix",
-            "🔥 Vortex",
-            "🛡️ Sentinel",
-            "🧿 Cypher",
-            "💠 Neutrino",
-            "🪐 Atlas",
-            "⚔️ Omega-X"
+            "🤖 Axiom",
+            "🤖 Orion",
+            "🤖 Zenith",
+            "🤖️ Helix",
+            "🤖 Vortex",
+            "🤖️ Sentinel",
+            "🤖 Cypher",
+            "🤖 Neutrino",
+            "🤖 Atlas",
+            "🤖️ Omega-X"
     };
 
     String[] players = {
@@ -35,13 +35,13 @@ public class RockPaperScissors {
             "🎮 Shadow"
     };
 
+    String[] roundOutcomes = {"📄 covers 🪨", "🪨 beats ✂️", "✂️cuts 📄"};
+
     String player = players[random.nextInt(players.length)];
     String robot = robots[random.nextInt(robots.length)];
 
-    int numOfRounds = 3;
     int currRound = 1;
     int roundWin = 25;
-    int gameWinnerPts = 75;
     int playerScore = 0;
     int robotScore = 0;
 
@@ -60,7 +60,7 @@ public class RockPaperScissors {
 
     void startGame() {
         gamePlayers();
-        while (true) {
+        while (currRound <= 3) {
             System.out.println("\n- - - - ROUND " + currRound + " - - - -");
             System.out.print("enter 1| 🪨 rock 2| 📃 paper 3| ✂️ scissors: ");
 
@@ -75,13 +75,11 @@ public class RockPaperScissors {
                     System.out.println(player + " chose " + rps[playerMove - 1]);
                     System.out.println(robot + " chose " + rps[robotMove - 1]);
                     System.out.println("- - - - - - - - - - -");
+                    // check winner logic
+                    checkWinner(playerMove, robotMove);
 
                     currRound++; // increment round
 
-                    for (int i = 0; i <= numOfRounds; i++) {
-                        // check winner logic
-                        checkWinner(playerMove, robotMove);
-                    }
                 }
             } catch (InputMismatchException e) {
                 System.out.println("invalid input");
@@ -89,90 +87,74 @@ public class RockPaperScissors {
         }
     }
 
-    void checkWinner(int playerMove, int cpuMove) {
+    void checkWinner(int playerMove, int robotMove) {
 
-        int result = (playerMove * 10 + cpuMove);
+        int result = (playerMove * 10 + robotMove);
 
-        if (playerScore > robotScore) {
-            System.out.println("-------------");
-            System.out.println("WINNER -> " + player);
-        } else if (robotScore > playerScore) {
-            System.out.println("-------------");
-            System.out.println("WINNER -> " + robot);
-        } else {
-            System.out.println("winner has yet to be determined... keep playing!");
-        }
-
+        // tie
         switch (result) {
             case 11, 22, 33 -> {
-                System.out.println("----");
                 System.out.println("tie");
-                System.out.println("----");
-                System.out.println("no winner");
+                System.out.println("-------------");
+                System.out.println("No winner in round " + currRound);
                 System.out.println("0 points");
             }
+
+            // player wins
             case 21 -> {
-                System.out.println("-------------");
-                System.out.println("📄 covers 🪨");
-                System.out.println("-------------");
-                System.out.println(player + " wins!");
-                System.out.println("-------------");
+                System.out.println(roundOutcomes[0] + " -> " + player + " takes round " + currRound);
+                System.out.println("----------------------------------------");
                 playerScore += roundWin;
                 System.out.println(playerScore + "+ points");
             }
             case 13 -> {
-                System.out.println("-------------");
-                System.out.println("🪨 beats ✂️");
-                System.out.println("-------------");
-                System.out.println(player + " wins!");
-                System.out.println("-------------");
+                System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
+                System.out.println("----------------------------------------");
                 playerScore += roundWin;
                 System.out.println(playerScore + "+ points");
             }
             case 32 -> {
-                System.out.println("-------------");
-                System.out.println("✂️cuts 📄");
-                System.out.println("-------------");
-                System.out.println(player + " wins!");
-                System.out.println("-------------");
+                System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
+                System.out.println("----------------------------------------");
                 playerScore += roundWin;
                 System.out.println(playerScore + "+ points");
             }
-            case 31 -> {
-                System.out.println("-------------");
-                System.out.println("🪨 beats ✂️");
-                System.out.println("-------------");
-                System.out.println(robot + " wins!");
-                System.out.println("-------------");
+
+            // robot wins
+            case 12 -> {
+                System.out.println(roundOutcomes[0] + " -> " + robot + " takes round " + currRound);
+                System.out.println("----------------------------------------");
                 robotScore += roundWin;
                 System.out.println(robotScore + "+ points");
             }
-            case 12 -> {
-                System.out.println("-------------");
-                System.out.println("📄 covers 🪨");
-                System.out.println("-------------");
-                System.out.println(robot + " wins!");
-                System.out.println("-------------");
+            case 31 -> {
+                System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
+                System.out.println("----------------------------------------");
                 robotScore += roundWin;
                 System.out.println(robotScore + "+ points");
             }
             case 23 -> {
-                System.out.println("-------------");
-                System.out.println("✂️cuts 📄");
-                System.out.println("-------------");
-                System.out.println(robot + " wins!");
-                System.out.println("-------------");
+                System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
+                System.out.println("-----------------------------------------");
                 robotScore += roundWin;
                 System.out.println(robotScore + "+ points");
             }
             default -> {
-                System.out.println("-------------");
+                System.out.println("----------------------------------------");
                 System.out.println("no winner determined yet... keep playing!");
             }
         }
-        playerScore++;
-        robotScore++;
         System.out.println(player + ": " + playerScore + " pts.");
         System.out.println(robot + ": " + robotScore + " pts.");
+
+        if (playerScore > robotScore && currRound == 3) {
+            System.out.println("-------------");
+            System.out.println("WINNER -> " + player + " (YOU)");
+        } else if (robotScore > playerScore && currRound == 3) {
+            System.out.println("-------------");
+            System.out.println("WINNER -> " + robot + " (CPU)");
+        } else {
+            System.out.println("winner has yet to be determined... keep playing!");
+        }
     }
 }

@@ -1,26 +1,25 @@
-public class Main {
-    public static void main(String[] args) {
+void main() {
 
-        Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
-        boolean isRunning = true;
+    boolean isRunning = true;
 
-        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+    RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
-        do {
-            rockPaperScissors.rpsMsg();
+    rockPaperScissors.rpsMsg();
 
-            System.out.print("\nReady to play (y/n): ");
-            String userPlay = scanner.nextLine().toLowerCase();
+    do {
+        System.out.print("\nReady to play (y/n): ");
+        String userPlay = scanner.nextLine().toLowerCase();
 
-            if (userPlay.equals("y") || userPlay.equals("yes")) {
-                rockPaperScissors.startGame();
-            } else if (userPlay.equals("n") || userPlay.equals("no")) {
-                System.out.println("take care! 👋🏽");
-                return;
-            } else {
-                System.out.println("invalid entry");
-            }
-        } while (isRunning);
-    }
+        if (userPlay.equals("y") || userPlay.equals("yes")) {
+            rockPaperScissors.startGame();
+        } else if (userPlay.equals("n") || userPlay.equals("no")) {
+            System.out.println("take care! 👋🏽");
+            isRunning = false;
+        } else {
+            System.out.println("invalid entry");
+        }
+    } while (isRunning);
+
 }
