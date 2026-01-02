@@ -2,16 +2,16 @@ public class Score {
 
     private int playerWins;
     private int playerLosses;
-    private int cpuWins;
-    private int cpuLosses;
+    private int robotWins;
+    private int robotLosses;
     private int draw;
 
     // constructor
     public Score(int playerWins, int playerLosses, int cpuWins, int cpuLosses){
         this.playerWins = playerWins;
         this.playerLosses = playerLosses;
-        this.cpuWins = cpuWins;
-        this.cpuLosses = cpuLosses;
+        this.robotWins = cpuWins;
+        this.robotLosses = cpuLosses;
     }
 
     public int getPlayerWins() {
@@ -30,20 +30,20 @@ public class Score {
         this.playerLosses = playerLosses;
     }
 
-    public int getCpuWins() {
-        return cpuWins;
+    public int getRobotWins() {
+        return robotWins;
     }
 
-    public void setCpuWins(int cpuWins) {
-        this.cpuWins = cpuWins;
+    public void setRobotWins(int robotWins) {
+        this.robotWins = robotWins;
     }
 
-    public int getCpuLosses() {
-        return cpuLosses;
+    public int getRobotLosses() {
+        return robotLosses;
     }
 
-    public void setCpuLosses(int cpuLosses) {
-        this.cpuLosses = cpuLosses;
+    public void setRobotLosses(int robotLosses) {
+        this.robotLosses = robotLosses;
     }
 
     public int getDraw() {

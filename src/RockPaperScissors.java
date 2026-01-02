@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class RockPaperScissors {
 
+    ScoreBoardManager scoreBoardManager = new ScoreBoardManager();
+
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
 
@@ -55,6 +57,8 @@ public class RockPaperScissors {
     String player = "";
     String robot = robots[random.nextInt(robots.length)];
 
+    String[] roundWinner = {player, robot, "tie"};
+
     int currRound = 1;
     int numOfRounds = 3;
     int roundWinPts = 25;
@@ -69,8 +73,7 @@ public class RockPaperScissors {
         System.out.println("*******************");
         System.out.println("ROCK PAPER SCISSORS");
         System.out.println("*******************");
-        System.out.println("Best of " + numOfRounds + " Rounds\n");
-        System.out.println(player + " (YOU) vs " + robot + " (CPU)");
+        System.out.println("Best of " + numOfRounds + " Rounds");
     }
 
     void gamePlayers() {
@@ -93,7 +96,7 @@ public class RockPaperScissors {
                     System.out.println("\n- - - - ROUND " + currRound + " Results - - - -");
                     System.out.println(player + " chose " + rps[playerMove - 1]);
                     System.out.println(robot + " chose " + rps[robotMove - 1]);
-                    System.out.println("- - - - - - - - - - -");
+                    System.out.println("----------------------------------------");
 
                     // check winner logic
                     checkWinner(playerMove, robotMove);
@@ -113,9 +116,7 @@ public class RockPaperScissors {
 
         // tie
         switch (result) {
-            case 11, 22, 33 -> {
-                System.out.println("tie -> no winner in round " + currRound);
-            }
+            case 11, 22, 33 -> System.out.println("tie -> no winner in round " + currRound);
 
             // player wins
             case 21 -> {
@@ -163,40 +164,42 @@ public class RockPaperScissors {
             }
         }
 
-        //scoreBoard();
-
-        if (playerScore > robotScore && currRound == numOfRounds) {
-            System.out.println("-------------");
-            System.out.println("WINNER -> " + player + " (YOU)");
-        } else if (robotScore > playerScore && currRound == numOfRounds) {
-            System.out.println("-------------");
-            System.out.println("WINNER -> " + robot + " (CPU)");
-        } else {
+            if (playerScore > robotScore && currRound == numOfRounds) {
+                System.out.println("\nYou win!");
+            } else if (robotScore > playerScore && currRound == numOfRounds) {
+                System.out.println("\n" + robot + " wins!");
+            }
             drawCheck(); // checks for game draw
         }
-    }
 
     void scoreBoard() {
-        //System.out.println("- - - - - WINNER - - - - -");
-        if (playerScore > robotScore) {
-            System.out.println(player + ": " + playerScore + " pts.");
-        } else {
-            System.out.println(robot + ": " + robotScore + " pts.");
+        System.out.println("\n- - - - - SCOREBOARD - - - - -");
+        for (int i = 1; i < currRound; i++) {
+
+        System.out.println("Round " + i + " Winner -> " + player);
+
+
+//            if (playerScore > robotScore && currRound != numOfRounds) {
+//                System.out.println("Round " + i + " Winner -> " + player);
+//            } else if (robotScore > playerScore && currRound != numOfRounds) {
+//                System.out.println("Round " + i + " Winner -> " + player);
+//            } else {
+//                System.out.println("Round " + i + " Tie");
+//            }
         }
     }
 
-    void roundWinner(int playerScore, int robotScore) {
+        void roundWinner( int playerScore, int robotScore){
+            if (playerScore > robotScore) {
+                System.out.println("Round " + currRound + " winner -> " + player + " (" + playerScore + "+ pts.)");
+            } else {
+                System.out.println("Round " + currRound + " winner -> " + robot + " (" + robotScore + "+ pts.)");
+            }
+        }
 
-        if (playerScore > robotScore) {
-            System.out.println("Round " + currRound + " winner -> " + player + " (" + playerScore + "+ pts.)");
-        } else {
-            System.out.println("Round " + currRound + " winner -> " + robot + " (" + robotScore + "+ pts.)");
+        void drawCheck() {
+            if (playerScore == robotScore && currRound == numOfRounds) {
+                System.out.println("\nGame has officially been declared a draw!");
+            }
         }
     }
-
-    void drawCheck(){
-        if (playerScore == robotScore && currRound == numOfRounds){
-            System.out.println("Game has officially been declared a draw");
-        }
-    }
-}
