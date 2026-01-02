@@ -41,9 +41,10 @@ public class RockPaperScissors {
     String robot = robots[random.nextInt(robots.length)];
 
     int currRound = 1;
-    int roundWin = 25;
+    int roundWinPts = 25;
     int playerScore = 0;
     int robotScore = 0;
+    int roundWinner = 0;
 
     void rpsMsg() {
         System.out.println("🪨  vs  📄  vs  ✂️");
@@ -104,19 +105,19 @@ public class RockPaperScissors {
             case 21 -> {
                 System.out.println(roundOutcomes[0] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
-                playerScore += roundWin;
+                playerScore += roundWinPts;
                 System.out.println(playerScore + "+ points");
             }
             case 13 -> {
                 System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
-                playerScore += roundWin;
+                playerScore += roundWinPts;
                 System.out.println(playerScore + "+ points");
             }
             case 32 -> {
                 System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
-                playerScore += roundWin;
+                playerScore += roundWinPts;
                 System.out.println(playerScore + "+ points");
             }
 
@@ -124,19 +125,19 @@ public class RockPaperScissors {
             case 12 -> {
                 System.out.println(roundOutcomes[0] + " -> " + robot + " takes round " + currRound);
                 System.out.println("----------------------------------------");
-                robotScore += roundWin;
+                robotScore += roundWinPts;
                 System.out.println(robotScore + "+ points");
             }
             case 31 -> {
                 System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
-                robotScore += roundWin;
+                robotScore += roundWinPts;
                 System.out.println(robotScore + "+ points");
             }
             case 23 -> {
                 System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
                 System.out.println("-----------------------------------------");
-                robotScore += roundWin;
+                robotScore += roundWinPts;
                 System.out.println(robotScore + "+ points");
             }
             default -> {
