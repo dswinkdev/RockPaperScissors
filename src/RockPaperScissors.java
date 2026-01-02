@@ -10,16 +10,16 @@ public class RockPaperScissors {
     String[] rps = {"🪨", "📃", "✂️"};
 
     String[] robots = {
-            "🤖 Axiom",
-            "🤖 Orion",
-            "🤖 Zenith",
-            "🤖️ Helix",
-            "🤖 Vortex",
-            "🤖️ Sentinel",
-            "🤖 Cypher",
-            "🤖 Neutrino",
-            "🤖 Atlas",
-            "🤖️ Omega-X"
+            "🤖Axiom",
+            "🤖Orion",
+            "🤖Zenith",
+            "🤖️Helix",
+            "🤖Vortex",
+            "🤖️Sentinel",
+            "🤖Cypher",
+            "🤖Neutrino",
+            "🤖Atlas",
+            "🤖️Omega-X"
     };
 
     String[] players = {
@@ -35,9 +35,24 @@ public class RockPaperScissors {
             "🎮 Shadow"
     };
 
+    String[] randomEmojis = {
+            "🧑🏽‍💻", // hacker / coder
+            "🧙🏽‍♂️", // mage
+            "🦸🏽‍♂️", // hero
+            "🥷🏽",   // ninja
+            "🧑🏽‍🚀", // astronaut
+            "🧑🏽‍🎤", // performer
+            "🧑🏽‍🔧", // engineer
+            "🧑🏽‍⚕️", // healer
+            "🧑🏽‍🏫", // strategist
+            "🧑🏽‍🚒",  // tank / defender
+            "👩🏿‍💻" // black girl coder
+    };
+
+
     String[] roundOutcomes = {"📄 covers 🪨", "🪨 beats ✂️", "✂️cuts 📄"};
 
-    String player = players[random.nextInt(players.length)];
+    String player = "";
     String robot = robots[random.nextInt(robots.length)];
 
     int currRound = 1;
@@ -75,10 +90,11 @@ public class RockPaperScissors {
                 if (playerMove < 1 || playerMove > 3) {
                     System.out.println("invalid entry (please choose a number between 1-3)");
                 } else {
-                    System.out.println("\n- - - - results - - - -");
+                    System.out.println("\n- - - - ROUND " + currRound + " Results - - - -");
                     System.out.println(player + " chose " + rps[playerMove - 1]);
                     System.out.println(robot + " chose " + rps[robotMove - 1]);
                     System.out.println("- - - - - - - - - - -");
+
                     // check winner logic
                     checkWinner(playerMove, robotMove);
 
@@ -99,7 +115,6 @@ public class RockPaperScissors {
         switch (result) {
             case 11, 22, 33 -> {
                 System.out.println("tie -> no winner in round " + currRound);
-                //System.out.println("0 points");
             }
 
             // player wins
@@ -107,21 +122,18 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[0] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
-                System.out.println(player + " (" + playerScore + "+ points)");
                 roundWinner(playerScore, robotScore);
             }
             case 13 -> {
                 System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
-                System.out.println(player + " (" + playerScore + "+ points)");
                 roundWinner(playerScore, robotScore);
             }
             case 32 -> {
                 System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
-                System.out.println(player + " (" + playerScore + "+ points)");
                 roundWinner(playerScore, robotScore);
             }
 
@@ -130,21 +142,18 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[0] + " -> " + robot + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 robotScore += roundWinPts;
-                System.out.println(robot + " (" + robotScore + "+ points)");
                 roundWinner(playerScore, robotScore);
             }
             case 31 -> {
-                System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
+                System.out.println(roundOutcomes[1] + " -> " + robot + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 robotScore += roundWinPts;
-                System.out.println(robot + " (" + robotScore + "+ points)");
                 roundWinner(playerScore, robotScore);
             }
             case 23 -> {
-                System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
+                System.out.println(roundOutcomes[2] + " -> " + robot + " takes round " + currRound);
                 System.out.println("-----------------------------------------");
                 robotScore += roundWinPts;
-                System.out.println(robot + " (" + robotScore + "+ points)");
                 roundWinner(playerScore, robotScore);
             }
             default -> {
@@ -163,7 +172,7 @@ public class RockPaperScissors {
             System.out.println("-------------");
             System.out.println("WINNER -> " + robot + " (CPU)");
         } else {
-            System.out.println("winner has yet to be determined... keep playing!");
+            drawCheck(); // checks for game draw
         }
     }
 
@@ -177,11 +186,17 @@ public class RockPaperScissors {
     }
 
     void roundWinner(int playerScore, int robotScore) {
-        roundWin++;
+
         if (playerScore > robotScore) {
-            System.out.println("Round " + roundWin + " winner -> " + player);
+            System.out.println("Round " + currRound + " winner -> " + player + " (" + playerScore + "+ pts.)");
         } else {
-            System.out.println("Round " + roundWin + " winner -> " + robot);
+            System.out.println("Round " + currRound + " winner -> " + robot + " (" + robotScore + "+ pts.)");
+        }
+    }
+
+    void drawCheck(){
+        if (playerScore == robotScore && currRound == numOfRounds){
+            System.out.println("Game has officially been declared a draw");
         }
     }
 }
