@@ -44,7 +44,7 @@ public class RockPaperScissors {
     int roundWinPts = 25;
     int playerScore = 0;
     int robotScore = 0;
-    int roundWinner = 0;
+    int roundWin = 0;
 
     void rpsMsg() {
         System.out.println("🪨  vs  📄  vs  ✂️");
@@ -106,6 +106,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[0] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
+
                 System.out.println(playerScore + "+ points");
             }
             case 13 -> {
@@ -145,6 +146,9 @@ public class RockPaperScissors {
                 System.out.println("no winner determined yet... keep playing!");
             }
         }
+
+        roundWinner(playerScore,robotScore);
+
         System.out.println(player + ": " + playerScore + " pts.");
         System.out.println(robot + ": " + robotScore + " pts.");
 
@@ -156,6 +160,21 @@ public class RockPaperScissors {
             System.out.println("WINNER -> " + robot + " (CPU)");
         } else {
             System.out.println("winner has yet to be determined... keep playing!");
+        }
+    }
+
+    void roundWinner(int playerScore, int robotScore) {
+
+        for ()
+
+        if (playerScore > robotScore && currRound <= 3) {
+            roundWin++;
+            System.out.println("Round " + roundWin + " winner -> " + player);
+        } else if (robotScore > playerScore && currRound <= 3) {
+            roundWin++;
+            System.out.println("Round " + roundWin + " winner -> " + robot);
+        } else {
+            System.out.println("Round " + roundWin + " tie");
         }
     }
 }
