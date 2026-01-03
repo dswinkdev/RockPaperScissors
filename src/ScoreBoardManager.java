@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class ScoreBoardManager {
 
-    private ArrayList<Scoreboard> scores;
+    private final ArrayList<MatchUp> matches;
 
     public ScoreBoardManager(){
-        this.scores = new ArrayList<>();
+        this.matches = new ArrayList<>();
     }
 
-    void addScore(Scoreboard score){
-        scores.add(score);
+    void addMatch(MatchUp match){
+        matches.add(match);
     }
 }

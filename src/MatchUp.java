@@ -1,4 +1,4 @@
-public class Score {
+public class MatchUp {
 
     private int playerWins;
     private int playerLosses;
@@ -7,7 +7,9 @@ public class Score {
     private int draw;
 
     // constructor
-    public Score(int playerWins, int playerLosses, int cpuWins, int cpuLosses){
+    public MatchUp(){};
+
+    public MatchUp(int playerWins, int playerLosses, int cpuWins, int cpuLosses){
         this.playerWins = playerWins;
         this.playerLosses = playerLosses;
         this.robotWins = cpuWins;
@@ -52,5 +54,14 @@ public class Score {
 
     public void setDraw(int draw) {
         this.draw = draw;
+    }
+
+    @Override
+    public String toString() {
+        RockPaperScissors rps = new RockPaperScissors();
+        return "player: " + rps.player + " W: " +
+                getPlayerWins() + " L: " + getPlayerLosses() +
+                " | Cpu: " + rps.robot + " W: " +
+                getPlayerWins() + " L: " + getRobotLosses();
     }
 }
