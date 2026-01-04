@@ -21,6 +21,7 @@ void main() {
         if (userPlay.equals("y") || userPlay.equals("yes")) {
             rockPaperScissors.startGame();
             rockPaperScissors.scoreBoard();
+            break;
 
         } else if (userPlay.equals("n") || userPlay.equals("no")) {
             System.out.println("take care! 👋🏽");
