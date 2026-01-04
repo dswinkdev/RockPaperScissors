@@ -1,3 +1,6 @@
+import java.util.Random;
+import java.util.Scanner;
+
 void main() {
 
     Scanner scanner = new Scanner(System.in);
@@ -5,9 +8,9 @@ void main() {
 
     boolean isRunning = true;
 
-    RockPaperScissors rockPaperScissors = new RockPaperScissors();
-
     do {
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+
         rockPaperScissors.rpsMsg();
 
         System.out.print("\nReady to play (yes/no): ");
@@ -21,14 +24,15 @@ void main() {
         if (userPlay.equals("y") || userPlay.equals("yes")) {
             rockPaperScissors.startGame();
             rockPaperScissors.scoreBoard();
-            rockPaperScissors.printTrophy(rockPaperScissors.winner);
 
             System.out.print("play again? (yes/no): ");
             String playAgain = scanner.nextLine();
 
             if (playAgain.equals("y") || playAgain.equals("yes")){
+                isRunning = true;
                 System.out.println("resetting game...");
             } else {
+                isRunning = false;
                 System.out.println("Thanks for playing!");
                 break;
             }

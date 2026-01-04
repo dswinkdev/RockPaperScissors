@@ -265,18 +265,30 @@ public class RockPaperScissors {
     }
 
     void printTrophy(String winner) {
-        System.out.println("        ___________");
-        System.out.println("       '._==_==_=_.'");
-        System.out.println("       .-\\:      /-.");
-        System.out.println("      | (|: WINNER :|) |");
-        System.out.println("\t\t\t" + winner);
-        System.out.println("       '-|:      |-'");
-        System.out.println("         \\::.    /");
-        System.out.println("          '::. .'");
-        System.out.println("            ) (");
-        System.out.println("          _.'   '._");
-        System.out.println("        \"\"\"\"\"\"\"\"\"");
+        if (draw > playerWinPoints && draw > robotWinPoints) {
+            System.out.println("        ___________");
+            System.out.println("       '._==_==_=_.'");
+            System.out.println("       .-\\:      /-.");
+            System.out.println("      | (|: DRAW :|) |");
+            System.out.println("       '-|:      |-'");
+            System.out.println("         \\::.    /");
+            System.out.println("          '::. .'");
+            System.out.println("            ) (");
+            System.out.println("          _.'   '._");
+            System.out.println("        \"\"\"\"\"\"\"\"\"\"\"\"");
+        } else {
+            System.out.println("        ___________");
+            System.out.println("       '._==_==_=_.'");
+            System.out.println("       .-\\:      /-.");
+            System.out.println("      | (|: WINNER :|) |");
+            System.out.println("\t\t  " + winner);
+            System.out.println("       '-|:      |-'");
+            System.out.println("         \\::.    /");
+            System.out.println("          '::. .'");
+            System.out.println("            ) (");
+            System.out.println("          _.'   '._");
+            System.out.println("        \"\"\"\"\"\"\"\"\"\"\"\"");
+        }
     }
-
 }
 
