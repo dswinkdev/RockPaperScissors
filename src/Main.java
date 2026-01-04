@@ -21,7 +21,16 @@ void main() {
         if (userPlay.equals("y") || userPlay.equals("yes")) {
             rockPaperScissors.startGame();
             rockPaperScissors.scoreBoard();
-            break;
+
+            System.out.print("play again? (yes/no): ");
+            String playAgain = scanner.nextLine();
+
+            if (playAgain.equals("y") || playAgain.equals("yes")){
+                System.out.println("resetting game...");
+            } else {
+                System.out.println("Thanks for playing!");
+                break;
+            }
 
         } else if (userPlay.equals("n") || userPlay.equals("no")) {
             System.out.println("take care! 👋🏽");
