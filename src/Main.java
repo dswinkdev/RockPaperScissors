@@ -7,9 +7,9 @@ void main() {
 
     RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
-    rockPaperScissors.rpsMsg();
-
     do {
+        rockPaperScissors.rpsMsg();
+
         System.out.print("\nReady to play (yes/no): ");
         String userPlay = scanner.nextLine().toLowerCase();
 
@@ -21,7 +21,7 @@ void main() {
         if (userPlay.equals("y") || userPlay.equals("yes")) {
             rockPaperScissors.startGame();
             rockPaperScissors.scoreBoard();
-            break;
+
         } else if (userPlay.equals("n") || userPlay.equals("no")) {
             System.out.println("take care! 👋🏽");
             isRunning = false;
@@ -30,4 +30,5 @@ void main() {
         }
     } while (isRunning);
 
+    scanner.close(); // close scanner
 }

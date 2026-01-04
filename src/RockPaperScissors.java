@@ -62,21 +62,20 @@ public class RockPaperScissors {
     String[] roundWinner = {player, robot, "tie"};
 
     int currRound = 1;
-    int winPoint = 0;
-    int numOfRounds = 3;
+    int playerWinPoint = 1;
+    int robotWinPoint = 1;
+    int numOfRounds = 0;
+    int numOfRoundsMax = 15;
     int roundWinPts = 25;
     int playerScore = 0;
     int robotScore = 0;
     int draw = 0;
-    int roundWin = 0;
-    boolean isRoundWinner = false;
 
     void rpsMsg() {
         System.out.println("🪨  vs  📄  vs  ✂️");
         System.out.println("*******************");
         System.out.println("ROCK PAPER SCISSORS");
         System.out.println("*******************");
-        System.out.println("Best of " + numOfRounds + " Match");
     }
 
     void gamePlayers() {
@@ -85,6 +84,12 @@ public class RockPaperScissors {
 
     void startGame() {
         gamePlayers();
+
+        System.out.print("How many rounds do you want to play? (" + numOfRoundsMax + " max): ");
+        numOfRounds = scanner.nextInt();
+
+        numberOfRoundsCheck(); // checks number of rounds for min & max
+
         while (currRound <= numOfRounds) {
             System.out.println("\n- - - - ROUND " + currRound + " - - - -");
             System.out.print("enter 1| 🪨 rock 2| 📃 paper 3| ✂️ scissors: ");
@@ -129,7 +134,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[0] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
-                //playerScore += winPoint;
+                playerWinPoint++;
                 roundWinner(playerScore, robotScore);
                 roundManager.addRound(new Round(currRound, player, robot, draw));
             }
@@ -137,7 +142,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[1] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
-                //playerScore += winPoint;
+                playerWinPoint++;
                 roundWinner(playerScore, robotScore);
                 roundManager.addRound(new Round(currRound, player, robot, draw));
             }
@@ -145,7 +150,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[2] + " -> " + player + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 playerScore += roundWinPts;
-                //playerScore += winPoint;
+                playerWinPoint++;
                 roundWinner(playerScore, robotScore);
                 roundManager.addRound(new Round(currRound, player, robot, draw));
             }
@@ -155,7 +160,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[0] + " -> " + robot + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 robotScore += roundWinPts;
-                //robotScore += winPoint;
+                robotWinPoint++;
                 roundWinner(playerScore, robotScore);
                 roundManager.addRound(new Round(currRound, robot, player, draw));
             }
@@ -163,7 +168,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[1] + " -> " + robot + " takes round " + currRound);
                 System.out.println("----------------------------------------");
                 robotScore += roundWinPts;
-                //robotScore += winPoint;
+                robotWinPoint++;
                 roundWinner(playerScore, robotScore);
                 roundManager.addRound(new Round(currRound, robot, player, draw));
             }
@@ -171,7 +176,7 @@ public class RockPaperScissors {
                 System.out.println(roundOutcomes[2] + " -> " + robot + " takes round " + currRound);
                 System.out.println("-----------------------------------------");
                 robotScore += roundWinPts;
-                //robotScore += winPoint;
+                robotWinPoint++;
                 roundWinner(playerScore, robotScore);
                 roundManager.addRound(new Round(currRound, robot, player, draw));
             }
@@ -196,6 +201,8 @@ public class RockPaperScissors {
 
         System.out.println("\n- - - - - SCOREBOARD - - - - -");
         roundManager.viewAllRounds();
+
+        declareWinner(); // winner declared
     }
 
     void roundWinner(int playerScore, int robotScore) {
@@ -210,7 +217,7 @@ public class RockPaperScissors {
             roundManager.addRound(new Round(currRound, robot, player, draw));
         }
 
-        if (robotScore == playerScore && currRound != numOfRounds) {
+        if (robotScore == playerScore) {
             draw++;
             roundManager.addRound(new Round(currRound, noWinner, noWinner, draw));
         }
@@ -222,13 +229,32 @@ public class RockPaperScissors {
         }
     }
 
-    void winSweepCheck(){
-        for (int i = 0; i < numOfRounds; i++){
-            if (round.getRoundWinner().equals(player) && round.getRoundLoser().equals(robot)){
-                System.out.println("SWEEP!!!🧹");
-            } else if (round.getRoundWinner().equals(robot) && round.getRoundLoser().equals(player)){
-                System.out.println("SWEEP!!!🧹");
-            }
+    void winSweepCheck() {
+        if (playerScore > robotScore && playerWinPoint == numOfRounds) {
+            System.out.println(player + " 🧹" + robot);
+        } else if (robotScore > playerScore && robotWinPoint == numOfRounds) {
+            System.out.println(player + " 🧹" + robot);
+        }
+    }
+
+    void numberOfRoundsCheck() {
+        if (numOfRounds < 1 || numOfRounds > 15) {
+            System.out.println("rounds can only be between 1-15");
+        }
+        System.out.println((numOfRounds == 1) ? "Best of " + numOfRounds + " Round" :
+                "Best of " + numOfRounds + " Rounds");
+    }
+
+    void declareWinner(){
+        if (playerScore > robotScore && currRound == numOfRounds){
+            System.out.println("Declared Winner: " + player);
+            System.out.println();
+        } else if (robotScore > playerScore && currRound == numOfRounds){
+            System.out.println("Declared Winner: " + robot);
+            System.out.println();
+        } else {
+            System.out.println("Game has ended in a draw");
         }
     }
 }
+
