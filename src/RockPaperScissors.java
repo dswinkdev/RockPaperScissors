@@ -57,6 +57,7 @@ public class RockPaperScissors {
     String player = "";
     String robot = robots[random.nextInt(robots.length)];
     String noWinner = "❌";
+    String winner = "";
 
     int currRound = 1;
     int playerWinPoints = 0;
@@ -74,7 +75,7 @@ public class RockPaperScissors {
         System.out.println("*******************");
         System.out.println("ROCK PAPER SCISSORS");
         System.out.println("*******************");
-        System.out.println("  SharkWave Tech");
+        System.out.println(" SharkWave 🌊Tech");
     }
 
     void gamePlayers() {
@@ -135,6 +136,7 @@ public class RockPaperScissors {
                 playerScore += roundWinPts;
                 playerWinPoints++;
                 roundWinner(playerScore, robotScore);
+                winner = player;
             }
             case 13 -> {
                 System.out.println(roundOutcomes[1] + " -> " + player + " takes ROUND " + currRound);
@@ -142,6 +144,7 @@ public class RockPaperScissors {
                 playerScore += roundWinPts;
                 playerWinPoints++;
                 roundWinner(playerScore, robotScore);
+                winner = player;
             }
             case 32 -> {
                 System.out.println(roundOutcomes[2] + " -> " + player + " takes ROUND " + currRound);
@@ -149,6 +152,7 @@ public class RockPaperScissors {
                 playerScore += roundWinPts;
                 playerWinPoints++;
                 roundWinner(playerScore, robotScore);
+                winner = player;
             }
 
             // robot wins
@@ -158,6 +162,7 @@ public class RockPaperScissors {
                 robotScore += roundWinPts;
                 robotWinPoints++;
                 roundWinner(playerScore, robotScore);
+                winner = robot;
             }
             case 31 -> {
                 System.out.println(roundOutcomes[1] + " -> " + robot + " takes ROUND " + currRound);
@@ -165,6 +170,7 @@ public class RockPaperScissors {
                 robotScore += roundWinPts;
                 robotWinPoints++;
                 roundWinner(playerScore, robotScore);
+                winner = robot;
             }
             case 23 -> {
                 System.out.println(roundOutcomes[2] + " -> " + robot + " takes ROUND " + currRound);
@@ -172,6 +178,7 @@ public class RockPaperScissors {
                 robotScore += roundWinPts;
                 robotWinPoints++;
                 roundWinner(playerScore, robotScore);
+                winner = robot;
             }
             default -> {
                 System.out.println("----------------------------------------");
@@ -196,6 +203,7 @@ public class RockPaperScissors {
         winDrawPoints();   // calculate win points
         winSweepCheck();   // check for sweep
         declareWinner();   // announce winner
+        printTrophy(winner); // print winner trophy
 
         System.out.println("══════════════════════════════════════════");
         System.out.println("🎉             GAME COMPLETE              🎉");
@@ -255,5 +263,20 @@ public class RockPaperScissors {
                 + "final SCORE: " + robotScore + " pts.");
         System.out.println("🎰DRAW pts: " + draw);
     }
+
+    void printTrophy(String winner) {
+        System.out.println("        ___________");
+        System.out.println("       '._==_==_=_.'");
+        System.out.println("       .-\\:      /-.");
+        System.out.println("      | (|: WINNER :|) |");
+        System.out.println("\t\t\t" + winner);
+        System.out.println("       '-|:      |-'");
+        System.out.println("         \\::.    /");
+        System.out.println("          '::. .'");
+        System.out.println("            ) (");
+        System.out.println("          _.'   '._");
+        System.out.println("        \"\"\"\"\"\"\"\"\"");
+    }
+
 }
 

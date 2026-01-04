@@ -21,6 +21,7 @@ void main() {
         if (userPlay.equals("y") || userPlay.equals("yes")) {
             rockPaperScissors.startGame();
             rockPaperScissors.scoreBoard();
+            rockPaperScissors.printTrophy(rockPaperScissors.winner);
 
             System.out.print("play again? (yes/no): ");
             String playAgain = scanner.nextLine();
