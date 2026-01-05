@@ -8,10 +8,11 @@ void main() {
 
     boolean isRunning = true;
 
-    do {
-        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+    RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
-        rockPaperScissors.rpsMsg();
+    do {
+
+        rockPaperScissors.rpsMenu();
 
         System.out.print("\nReady to play (yes/no): ");
         String userPlay = scanner.nextLine().toLowerCase();
