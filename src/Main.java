@@ -8,9 +8,8 @@ void main() {
 
     boolean isRunning = true;
 
-    RockPaperScissors rockPaperScissors = new RockPaperScissors();
-
     do {
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
         rockPaperScissors.rpsMenu();
 
