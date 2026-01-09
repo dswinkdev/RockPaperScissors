@@ -8,9 +8,15 @@ void main() {
 
     boolean isRunning = true;
 
-    do {
-        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+    RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
+// autoplay
+//    do {
+//        rockPaperScissors.startGame();
+//        rockPaperScissors.scoreBoard();
+//    } while (isRunning);
+
+    do {
         rockPaperScissors.rpsMenu();
 
         System.out.print("\nReady to play (yes/no): ");
