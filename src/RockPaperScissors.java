@@ -88,7 +88,7 @@ public class RockPaperScissors {
         System.out.println("*******************");
         System.out.println("ROCK PAPER SCISSORS");
         System.out.println("*******************");
-        System.out.println(" Swink 🌊Technology");
+        System.out.println("Swink 🌊Technology");
 
         System.out.println("\npress 1) -> Start Game");
         System.out.println("press 2) -> High Score");
@@ -96,7 +96,16 @@ public class RockPaperScissors {
         System.out.println("press 4) -> Exit Game");
 
         System.out.print("\nenter choice: ");
-        String playerChoice = scanner.nextLine();
+        int playerChoice = scanner.nextInt();
+
+        switch (playerChoice){
+            case 1 -> startGame();
+            case 2 -> displayHighScore(playerScore,robotScore);
+            case 3 -> howToPlay();
+            case 4 -> {
+                System.out.println("Exiting game... see ya later! 🐊");
+            }
+        }
     }
 
     void gamePlayers() {
@@ -338,6 +347,46 @@ public class RockPaperScissors {
 
         System.out.println("══════════════════════════════════════════");
         System.out.println("🎉             GAME COMPLETE             🎉");
+        System.out.println("══════════════════════════════════════════\n");
+    }
+
+    void howToPlay() {
+        System.out.println("══════════════════════════════════════════");
+        System.out.println("📘            HOW TO PLAY                📘");
+        System.out.println("══════════════════════════════════════════\n");
+
+        System.out.println("🎮 OBJECTIVE:");
+        System.out.println("Defeat the robot by winning more rounds than it.\n");
+
+        System.out.println("🕹️ CONTROLS:");
+        System.out.println("Enter a number to make your move:");
+        System.out.println("1 → 🪨 Rock");
+        System.out.println("2 → 📃 Paper");
+        System.out.println("3 → ✂️ Scissors\n");
+
+        System.out.println("⚔️ GAME RULES:");
+        System.out.println("• 🪨 Rock beats ✂️ Scissors");
+        System.out.println("• ✂️ Scissors beats 📃 Paper");
+        System.out.println("• 📃 Paper beats 🪨 Rock");
+        System.out.println("• Same moves result in a tie\n");
+
+        System.out.println("🏆 SCORING:");
+        System.out.println("• Each round win = +" + roundWinPts + " points");
+        System.out.println("• Wins are tracked per round");
+        System.out.println("• Ties earn no points\n");
+
+        System.out.println("📊 MATCH FORMAT:");
+        System.out.println("• Choose between 1 and " + numOfRoundsMax + " rounds");
+        System.out.println("• Highest total score wins the game");
+        System.out.println("• A sweep occurs if one player wins every round\n");
+
+        System.out.println("🎉 END OF GAME:");
+        System.out.println("• Final scores are displayed on the scoreboard");
+        System.out.println("• A trophy is awarded to the winner");
+        System.out.println("• Games can end in a tie\n");
+
+        System.out.println("══════════════════════════════════════════");
+        System.out.println("Good luck — and may the odds be ever in your favor! 🍀");
         System.out.println("══════════════════════════════════════════\n");
     }
 }

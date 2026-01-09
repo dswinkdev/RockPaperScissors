@@ -10,24 +10,13 @@ void main() {
 
     RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
-// autoplay
-//    do {
-//        rockPaperScissors.startGame();
-//        rockPaperScissors.scoreBoard();
-//    } while (isRunning);
+    rockPaperScissors.rpsMenu();
+    System.out.print("enter player name: ");
+    rockPaperScissors.player = rockPaperScissors.randomEmojis
+            [random.nextInt(rockPaperScissors.randomEmojis.length)]
+            + scanner.nextLine();
 
     do {
-        rockPaperScissors.rpsMenu();
-
-        System.out.print("\nReady to play (yes/no): ");
-        String userPlay = scanner.nextLine().toLowerCase();
-
-        System.out.print("enter player name: ");
-        rockPaperScissors.player = rockPaperScissors.randomEmojis
-                [random.nextInt(rockPaperScissors.randomEmojis.length)]
-                + scanner.nextLine();
-
-        if (userPlay.equals("y") || userPlay.equals("yes")) {
             rockPaperScissors.startGame();
             rockPaperScissors.scoreBoard();
 
@@ -35,20 +24,11 @@ void main() {
             String playAgain = scanner.nextLine();
 
             if (playAgain.equals("y") || playAgain.equals("yes")){
-                isRunning = true;
                 System.out.println("resetting game...");
             } else {
-                isRunning = false;
                 System.out.println("Thanks for playing!");
-                break;
+                isRunning = false;
             }
-
-        } else if (userPlay.equals("n") || userPlay.equals("no")) {
-            System.out.println("take care! 👋🏽");
-            isRunning = false;
-        } else {
-            System.out.println("invalid entry");
-        }
     } while (isRunning);
 
     scanner.close(); // close scanner
