@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -19,16 +20,16 @@ public class RockPaperScissors {
 
 
     String[] robots = {
-            "🤖Axiom",
-            "🤖Orion",
-            "🤖Zenith",
-            "🤖️Helix",
-            "🤖Vortex",
-            "🤖️Sentinel",
-            "🤖Cypher",
-            "🤖Neutrino",
-            "🤖Atlas",
-            "🤖️Omega-X"
+            "Axiom",
+            "Orion",
+            "Zenith",
+            "Helix",
+            "Vortex",
+            "Sentinel",
+            "Cypher",
+            "Neutrino",
+            "Atlas",
+            "Omega-X"
     };
 
     String[] players = {
@@ -58,11 +59,16 @@ public class RockPaperScissors {
             "👩🏿‍💻" // black girl coder
     };
 
+    // names that can't be used
+    String[] restrictedPlayerNames = {
+            "cpu", "player", "human", "name", "person", "blank", "nobody"
+    };
 
     String[] roundOutcomes = {"📄covers 🪨", "🪨beats ✂️", "✂️cuts 📄"};
 
-    String player = players[random.nextInt(players.length)];
-    String robot = robots[random.nextInt(robots.length)];
+    String player = "";
+    String robot = randomEmojis[random.nextInt(randomEmojis.length)] +
+            robots[random.nextInt(robots.length)];
     String noWinner = "❌";
 
     int currRound = 1;
@@ -83,38 +89,66 @@ public class RockPaperScissors {
     int playerTieMove = 0;
 
     void rpsMenu() {
-        System.out.println("*******************");
-        System.out.println("🪨  vs  📄  vs  ✂️");
-        System.out.println("*******************");
+        System.out.println("///////////////////");
         System.out.println("ROCK PAPER SCISSORS");
-        System.out.println("*******************");
-        System.out.println("Swink 🌊Technology");
+        System.out.println("🪨  vs  📄  vs  ✂️");
+        System.out.println("///////////////////");
+        System.out.println("⚡️ Powered by ⚡️\nDigiSwink Studios, LLC");
+        System.out.println("©2026 All rights reserved.\n");
+        System.out.println("⚔️Let the BATTLE begin...\n");
+        createPlayer();
 
-        System.out.println("\npress 1) -> Start Game");
+        System.out.println("\n-------- MENU --------");
+        System.out.println("press 1) -> Play Game");
         System.out.println("press 2) -> High Score");
         System.out.println("press 3) -> How To Play");
         System.out.println("press 4) -> Exit Game");
+        System.out.println("----------------------");
 
         System.out.print("\nenter choice: ");
         int playerChoice = scanner.nextInt();
+        scanner.nextLine(); // clear buffer
 
-        switch (playerChoice){
-            case 1 -> startGame();
-            case 2 -> displayHighScore(playerScore,robotScore);
+        switch (playerChoice) {
+            case 1 -> playGame();
+            case 2 -> displayHighScore(playerScore, robotScore);
             case 3 -> howToPlay();
             case 4 -> {
                 System.out.println("Exiting game... see ya later! 🐊");
+                return;
+            }
+            default -> {
+                System.out.println("invalid entry");
             }
         }
     }
 
-    void gamePlayers() {
-        System.out.println(player + " vs. " + robot);
+    void playerMatchUp() {
+        System.out.println("\n----------- MATCHUP -----------");
+        System.out.println(player + " (YOU) vs. " + robot + " (CPU)");
+        System.out.println("---------------⚔️--------------");
     }
 
-    void startGame() {
-        gamePlayers();
+    boolean isValidName = false;
 
+    void createPlayer() {
+        while (!isValidName) {
+            System.out.print("enter player name: ");
+            player = randomEmojis[random.nextInt(randomEmojis.length)] + scanner.nextLine();
+
+            isValidName = true;
+
+            for (String restrictedPlayerName : restrictedPlayerNames) {
+                if (player.equalsIgnoreCase(restrictedPlayerName)) {
+                    isValidName = false;
+                    System.out.println("cannot use '" + restrictedPlayerName.toUpperCase() + "' as player name\n");
+                }
+            }
+        }
+        playerMatchUp();
+    }
+
+    void playGame() {
         System.out.print("\nHow many rounds do you want to play? (" + numOfRoundsMax + " max): ");
         numOfRounds = scanner.nextInt();
 
@@ -200,7 +234,7 @@ public class RockPaperScissors {
         }
     }
 
-    void tieBreaker(){
+    void tieBreaker() {
         RoundResult tie = RoundResult.TIE;
         System.out.println("\n*********** T I E  B R E A K E R ***********");
         System.out.println("\nYou have entered into a TIE BREAKER...");
@@ -210,9 +244,9 @@ public class RockPaperScissors {
 
         System.out.print("enter choice: ");
         playerTieMove = scanner.nextInt();
-        int robotTieMove = random.nextInt(1,4);
+        int robotTieMove = random.nextInt(1, 4);
 
-        while (playerTieMove < 1 || playerTieMove > 3 || robotTieMove < 1 || robotTieMove > 3){
+        while (playerTieMove < 1 || playerTieMove > 3 || robotTieMove < 1 || robotTieMove > 3) {
             System.out.println("invalid move");
         }
 
@@ -221,34 +255,35 @@ public class RockPaperScissors {
         System.out.println(robot + " chose " + rps[robotTieMove - 1]);
         System.out.println("----------------------------------------");
 
-        boolean notATie = true;
+        boolean stillATie = true;
 
-        while (notATie){
-            if (playerTieBreakerPts > robotTieBreakerPts){
+        while (stillATie) {
+            if (playerTieBreakerPts > robotTieBreakerPts) {
                 playerScore += doubleRoundPts;
                 robotScore -= doubleRoundPts;
                 System.out.println(player + " wins tie breaker");
                 System.out.println("points added: " + playerScore);
                 System.out.println("points lost: " + robotScore);
-                notATie = false;
+                stillATie = false;
                 roundWinner(RoundResult.PLAYER);
-            } else if (robotTieBreakerPts > playerTieBreakerPts){
+            } else if (robotTieBreakerPts > playerTieBreakerPts) {
                 robotScore += doubleRoundPts;
                 playerScore -= doubleRoundPts;
                 System.out.println(robot + " wins tie breaker");
                 System.out.println("points added: " + robotScore);
                 System.out.println("points lost: " + playerScore);
-                notATie = false;
+                stillATie = false;
                 roundWinner(RoundResult.ROBOT);
             } else {
                 System.out.println("Tie breaker still going....");
-                notATie = false;
+                roundWinner(RoundResult.TIE);
+                return;
             }
         }
     }
 
-    void roundTie(int playerWinPoints, int robotWinPoints){
-        if (playerWinPoints == robotWinPoints){
+    void roundTie(int playerWinPoints, int robotWinPoints) {
+        if (playerWinPoints == robotWinPoints) {
             System.out.println("Round " + currRound + " -> tie");
             roundManager.addRound(new Round(currRound, noWinner, noScore, draw));
         }
@@ -261,10 +296,23 @@ public class RockPaperScissors {
     }
 
     void winSweepCheck() {
+        String[] ordinalSuffixes = {"st", "nd", "rd", "th"};
+        String ordinal = "";
+
+        if (numOfRounds == 1) {
+            ordinal = ordinalSuffixes[0];
+        } else if (numOfRounds == 2) {
+            ordinal = ordinalSuffixes[1];
+        } else if (numOfRounds == 3) {
+            ordinal = ordinalSuffixes[2];
+        } else {
+            ordinal = ordinalSuffixes[3];
+        }
+
         if (playerWinPoints == numOfRounds) {
-            System.out.println("\n⭐️" + player + " 🧹sweeps 🧹" + robot + " in " + numOfRounds + " round matchup");
+            System.out.println("\n⭐️" + player + " 🧹sweeps 🧹" + robot + " in " + numOfRounds + ordinal + " round matchup");
         } else if (robotWinPoints == numOfRounds) {
-            System.out.println("\n⭐" + robot + " 🧹sweeps 🧹" + player + " in " + numOfRounds + " round matchup");
+            System.out.println("\n⭐" + robot + " 🧹sweeps 🧹" + player + " in " + numOfRounds + ordinal + " round matchup");
         }
     }
 
@@ -277,17 +325,17 @@ public class RockPaperScissors {
     }
 
     void declareWinner() {
-            if (playerScore > robotScore) {
-                System.out.println("\n🏆 GAME WINNER: " + player);
-            } else if (robotScore > playerScore) {
-                System.out.println("\n🏆 GAME WINNER: " + robot);
-            } else {
-                System.out.println("\n🤝 GAME ENDS IN A TIE");
-            }
+        if (playerScore > robotScore) {
+            System.out.println("\n🏆 GAME WINNER: " + player);
+        } else if (robotScore > playerScore) {
+            System.out.println("\n🏆 GAME WINNER: " + robot);
+        } else {
+            System.out.println("\n🤝 GAME ENDS IN A TIE");
         }
+    }
 
 
-        void winDrawPoints() {
+    void winDrawPoints() {
         System.out.println("*** PLAYER ***");
         System.out.println(player);
         System.out.println("🏆 Win Pts : " + playerWinPoints);
@@ -353,8 +401,7 @@ public class RockPaperScissors {
     void howToPlay() {
         System.out.println("══════════════════════════════════════════");
         System.out.println("📘            HOW TO PLAY                📘");
-        System.out.println("══════════════════════════════════════════\n");
-
+        System.out.println("══════════════════════════════════════════");
         System.out.println("🎮 OBJECTIVE:");
         System.out.println("Defeat the robot by winning more rounds than it.\n");
 

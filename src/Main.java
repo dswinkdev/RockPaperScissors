@@ -9,27 +9,26 @@ void main() {
     boolean isRunning = true;
 
     RockPaperScissors rockPaperScissors = new RockPaperScissors();
-
     rockPaperScissors.rpsMenu();
-    System.out.print("enter player name: ");
-    rockPaperScissors.player = rockPaperScissors.randomEmojis
-            [random.nextInt(rockPaperScissors.randomEmojis.length)]
-            + scanner.nextLine();
 
-    do {
-            rockPaperScissors.startGame();
-            rockPaperScissors.scoreBoard();
+    // start game
+    while (isRunning) {
+        rockPaperScissors.createPlayer();
+        rockPaperScissors.playGame();
+        rockPaperScissors.scoreBoard();
 
+        do {
             System.out.print("play again? (yes/no): ");
             String playAgain = scanner.nextLine();
 
-            if (playAgain.equals("y") || playAgain.equals("yes")){
+            if (playAgain.equals("y") || playAgain.equals("yes")) {
                 System.out.println("resetting game...");
             } else {
                 System.out.println("Thanks for playing!");
                 isRunning = false;
             }
-    } while (isRunning);
+        } while (isRunning);
 
-    scanner.close(); // close scanner
+        scanner.close(); // close scanner
+    }
 }
