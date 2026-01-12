@@ -16,12 +16,12 @@ public class RockPaperScissors {
 
     String[] rps = {"🪨", "📃", "✂️"};
 
+    // enumeration
     enum RoundResult {
         PLAYER,
         ROBOT,
         TIE
-    } // enumeration
-
+    }
 
     String[] robots = {
             "Terminator-X", "Axiom", "Orion", "Zenith", "Helix", "Vortex", "Sentinel", "Cypher", "Neutrino", "Atlas", "Omega-X",
