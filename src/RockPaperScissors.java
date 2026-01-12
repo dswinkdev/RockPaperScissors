@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -20,16 +19,10 @@ public class RockPaperScissors {
 
 
     String[] robots = {
-            "Axiom",
-            "Orion",
-            "Zenith",
-            "Helix",
-            "Vortex",
-            "Sentinel",
-            "Cypher",
-            "Neutrino",
-            "Atlas",
-            "Omega-X"
+            "Terminator-X", "Axiom", "Orion", "Zenith", "Helix", "Vortex", "Sentinel", "Cypher", "Neutrino", "Atlas", "Omega-X",
+            "Astra", "Nova", "Quantix", "Synapse", "Vertex", "Pulse", "Nexus", "Flux", "Echo", "Core",
+            "Titan", "Aegis", "Bulwark", "Colossus", "Vanguard", "Praetor", "Rampart", "Phalanx", "Centurion", "Overseer",
+            "RX-9", "MK-Z", "Unit-404", "AX-13", "Core-7", "NX-Prime", "Ω-12", "Xeno-5", "Proto-X", "Sentrix", "Java-99"
     };
 
     String[] players = {
@@ -55,8 +48,103 @@ public class RockPaperScissors {
             "🧑🏽‍🔧", // engineer
             "🧑🏽‍⚕️", // healer
             "🧑🏽‍🏫", // strategist
-            "🧑🏽‍🚒",  // tank / defender
-            "👩🏿‍💻" // black girl coder
+            "🧑🏽‍🚒", // tank / defender
+            "👩🏿‍💻", // black girl coder
+            "🧑🏽‍🔬", // scientist
+            "🧑🏽‍🎮", // gamer
+            "🧑🏽‍✈️", // pilot
+            "🧑🏽‍🏭", // industrial / builder
+            "🧑🏽‍⚖️", // judge / arbiter
+            "🧑🏽‍🌾", // resource gatherer
+            "🧑🏽‍🎨", // creative
+            "🧑🏽‍🚓", // enforcer
+            "🧑🏽‍🦯", // tactician / awareness
+            "🧑🏽‍🛠️", // mechanic
+            "🧑🏽‍🧠"  // strategist / AI mind
+    };
+
+    String[] worldEmojis = {"🌎", "🌍", "🌏"};
+
+    String[] cities = {
+            // United States
+            "🇺🇸 New York City, New York",
+            "🇺🇸 Los Angeles, California",
+            "🇺🇸 Chicago, Illinois",
+            "🇺🇸 Houston, Texas",
+            "🇺🇸 Miami, Florida",
+            "🇺🇸 Honolulu, Hawaii",
+            "🇵🇷 San Juan, Puerto Rico",
+
+            // Canada
+            "🇨🇦 Toronto, Ontario",
+            "🇨🇦 Vancouver, British Columbia",
+            "🇨🇦 Montreal, Quebec",
+
+            // Europe
+            "🇬🇧 London, England",
+            "🇫🇷 Paris, France",
+            "🇩🇪 Berlin, Germany",
+            "🇮🇹 Rome, Italy",
+            "🇪🇸 Madrid, Spain",
+            "🇬🇷 Athens, Greece",
+            "🇮🇸 Reykjavík, Iceland",
+            "🇳🇴 Oslo, Norway",
+            "🇸🇪 Stockholm, Sweden",
+
+            // Asia
+            "🇯🇵 Tokyo, Japan",
+            "🇯🇵 Kyoto, Japan",
+            "🇯🇵 Osaka, Japan",
+            "🇰🇷 Seoul, South Korea",
+            "🇨🇳 Beijing, China",
+            "🇨🇳 Shanghai, China",
+            "🇮🇳 Mumbai, Maharashtra",
+            "🇮🇳 Delhi, India",
+            "🇮🇳 Bangalore, Karnataka",
+            "🇹🇭 Bangkok, Thailand",
+            "🇸🇬 Singapore",
+            "🇲🇾 Kuala Lumpur, Malaysia",
+
+            // Middle East
+            "🇦🇪 Dubai, UAE",
+            "🇦🇪 Abu Dhabi, UAE",
+            "🇶🇦 Doha, Qatar",
+            "🇹🇷 Istanbul, Turkey",
+
+            // Africa
+            "🇪🇬 Cairo, Egypt",
+            "🇲🇦 Marrakech, Morocco",
+            "🇿🇦 Cape Town, South Africa",
+            "🇳🇬 Lagos, Nigeria",
+
+            // South America
+            "🇧🇷 Rio de Janeiro, Brazil",
+            "🇧🇷 São Paulo, Brazil",
+            "🇦🇷 Buenos Aires, Argentina",
+            "🇵🇪 Lima, Peru",
+
+            // Australia & Oceania
+            "🇦🇺 Sydney, Australia",
+            "🇦🇺 Melbourne, Australia",
+            "🇳🇿 Auckland, New Zealand",
+
+            // Natural / Regions
+            "🌳 Amazon Rainforest",
+            "🏜️ Sahara Desert",
+            "🏔️ Himalayas",
+            "❄️ Antarctica",
+
+            // 🌀 Fictional / Battle World
+            "🌀 Ironfall City, Ashen State",
+            "🌀 Neo Valor, Titan Province",
+            "🌀 Crimson Reach, Warbound Territory",
+            "🌀 Obsidian Gate, Blackrock State",
+            "🌀 Aether Haven, Skyreach Dominion",
+            "🌀 Riftwatch, Fracture Zone",
+            "🌀 Nova Bastion, Solar Expanse",
+            "🌀 Valkyrie Spire, Stormhold State",
+            "🌀 Hexforge City, Quantum Marches",
+            "🌀 Last Stand, Endfall Region"
     };
 
     // names that can't be used
@@ -68,8 +156,8 @@ public class RockPaperScissors {
 
     String playerName = "";
     String player = "";
-    String robot = "🤖" +
-            robots[random.nextInt(robots.length)];
+    String robot = "🤖" + robots[random.nextInt(robots.length)];
+    String city = "";
     String noWinner = "❌";
 
     int currRound = 1;
@@ -129,10 +217,17 @@ public class RockPaperScissors {
         }
     }
 
+    void battleLocation() {
+        city = worldEmojis[random.nextInt(worldEmojis.length)] +
+                cities[random.nextInt(cities.length)];
+        System.out.println(city);
+    }
+
     void playerMatchUp() {
         System.out.println("\n----------- MATCHUP -----------");
         System.out.println(player + " (YOU) vs. " + robot + " (CPU)");
         System.out.println("---------------⚔️--------------");
+        battleLocation();
     }
 
     boolean isValidName = false;
@@ -207,6 +302,7 @@ public class RockPaperScissors {
                 System.out.println(player + " takes ROUND " + currRound);
                 playerScore += roundWinPts;
                 playerWinPoints++;
+                playerTieBreakerPts++;
                 roundWinner(RoundResult.PLAYER);
                 return RoundResult.PLAYER;
             }
@@ -215,6 +311,7 @@ public class RockPaperScissors {
                 System.out.println(robot + " takes ROUND " + currRound);
                 robotScore += roundWinPts;
                 robotWinPoints++;
+                robotTieBreakerPts++;
                 roundWinner(RoundResult.ROBOT);
                 return RoundResult.ROBOT;
             }
@@ -284,11 +381,11 @@ public class RockPaperScissors {
             } else if (playerTieBreakerPts == robotTieBreakerPts) {
                 System.out.println("Tie breaker still going....");
             }
-                System.out.println("Tie breaker has been broken....");
-                roundWinner(RoundResult.TIE);
-                break;
-            }
+            System.out.println("Tie breaker has been broken....");
+            roundWinner(RoundResult.TIE);
+            break;
         }
+    }
 
     void roundTie(int playerWinPoints, int robotWinPoints) {
         if (playerWinPoints == robotWinPoints) {
@@ -349,7 +446,8 @@ public class RockPaperScissors {
     }
 
     void winDrawPoints() {
-        System.out.println("*** PLAYER ***");
+        System.out.println(city);
+        System.out.println("\n*** PLAYER ***");
         System.out.println(player);
         System.out.println("🏆 Win Pts : " + playerWinPoints);
         System.out.println("🎯 Score   : " + playerScore + " pts.\n");
@@ -361,7 +459,7 @@ public class RockPaperScissors {
 
         System.out.println("\n🎰 Draws   : " + draw);
 
-        System.out.println("\n🔔 Rounds   : " + (currRound-1));
+        System.out.println("\n🔔 Rounds   : " + (currRound - 1));
     }
 
     void printTrophy(String winner, String loser) {
@@ -449,6 +547,27 @@ public class RockPaperScissors {
         System.out.println("══════════════════════════════════════════");
         System.out.println("Good luck — and may the odds be ever in your favor! 🍀");
         System.out.println("══════════════════════════════════════════\n");
+    }
+
+    void viewAllRobots() {
+        System.out.println("<----- ROBOTS ----->");
+        for (int i = 0; i < robots.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + robots[i]);
+        }
+    }
+
+    void viewAllPlayers() {
+        System.out.println("<----- PLAYERS ----->");
+        for (int i = 0; i < players.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + players[i]);
+        }
+    }
+
+    void viewAllCities() {
+        System.out.println("<----- BATTLE LOCATIONS  ----->");
+        for (int i = 0; i < cities.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + cities[i]);
+        }
     }
 }
 

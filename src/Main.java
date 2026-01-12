@@ -9,6 +9,10 @@ void main() {
     boolean isRunning = true;
 
     RockPaperScissors rockPaperScissors = new RockPaperScissors();
+//    rockPaperScissors.viewAllCities();
+//    rockPaperScissors.viewAllPlayers();
+//    rockPaperScissors.viewAllRobots();
+
     rockPaperScissors.rpsMenu();
 
     // start game
