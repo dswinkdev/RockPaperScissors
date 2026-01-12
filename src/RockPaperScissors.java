@@ -31,16 +31,8 @@ public class RockPaperScissors {
     };
 
     String[] players = {
-            "🧑‍🚀 Maverick",
-            "🔥 Blaze",
-            "⚡ Ace",
-            "🎯 Striker",
-            "🌀 Phantom",
-            "🧠 Nova",
-            "🏹 Archer",
-            "💥 Raptor",
-            "🌟 Titan",
-            "🎮 Shadow"
+            "🧑‍🚀 Maverick","🔥Blaze","⚡️Ace", "🎯 Striker", "🌀 Phantom", "🧠 Nova",
+            "🏹 Archer", "💥 Raptor", "🌟 Titan", "🎮 Shadow"
     };
 
     String[] randomEmojis = {
