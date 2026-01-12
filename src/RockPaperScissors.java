@@ -568,6 +568,13 @@ public class RockPaperScissors {
             System.out.println("(" + (i + 1) + ") " + cities[i]);
         }
     }
+
+    void viewAllWorldEmojis() {
+        System.out.println("<----- WORLD EMOJIS  ----->");
+        for (int i = 0; i < worldEmojis.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + worldEmojis[i]);
+        }
+    }
 }
 
 

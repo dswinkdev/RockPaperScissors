@@ -12,6 +12,7 @@ void main() {
 //    rockPaperScissors.viewAllCities();
 //    rockPaperScissors.viewAllPlayers();
 //    rockPaperScissors.viewAllRobots();
+    rockPaperScissors.viewAllWorldEmojis();
 
     rockPaperScissors.rpsMenu();
 
