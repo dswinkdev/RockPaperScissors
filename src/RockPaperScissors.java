@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -8,6 +10,8 @@ public class RockPaperScissors {
 
     Scanner scanner = new Scanner(System.in);
     Random random = new Random();
+    DecimalFormat df = new DecimalFormat("#,###");
+    DateTimeFormatter dateTime = DateTimeFormatter.ISO_DATE_TIME;
 
     String[] rps = {"🪨", "📃", "✂️"};
 
@@ -176,6 +180,7 @@ public class RockPaperScissors {
     int playerTieBreakerPts = 0;
     int robotTieBreakerPts = 0;
     int playerTieMove = 0;
+    int fans = random.nextInt(10000,50001);
 
     void rpsMenu() {
         System.out.println("///////////////////");
@@ -218,8 +223,7 @@ public class RockPaperScissors {
     }
 
     void battleLocation() {
-        city = worldEmojis[random.nextInt(worldEmojis.length)] +
-                cities[random.nextInt(cities.length)];
+        city = cities[random.nextInt(cities.length)];
         System.out.println(city);
     }
 
@@ -445,8 +449,9 @@ public class RockPaperScissors {
         }
     }
 
-    void winDrawPoints() {
-        System.out.println(city);
+    void gamePlaySummary() {
+        System.out.println(worldEmojis[random.nextInt(worldEmojis.length)] + " " + city);
+        System.out.println((fans > 25000) ? "*SOLD OUT*\n🏟️" + fans + " fans" : "🏟️" + fans + " fans");
         System.out.println("\n*** PLAYER ***");
         System.out.println(player);
         System.out.println("🏆 Win Pts : " + playerWinPoints);
@@ -501,7 +506,7 @@ public class RockPaperScissors {
         System.out.println("📊           GAMEPLAY SUMMARY           📊");
         System.out.println("──────────────────────────────────────────");
 
-        winDrawPoints();   // calculate win points
+        gamePlaySummary();   // game play summary
         winSweepCheck();   // check for sweep
         declareWinner();   // announce winner
 
