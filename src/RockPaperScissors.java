@@ -1,8 +1,5 @@
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
-import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,11 +24,11 @@ public class RockPaperScissors {
             "Terminator-X", "Axiom", "Orion", "Zenith", "Helix", "Vortex", "Sentinel", "Cypher", "Neutrino", "Atlas", "Omega-X",
             "Astra", "Nova", "Quantix", "Synapse", "Vertex", "Pulse", "Nexus", "Flux", "Echo", "Core",
             "Titan", "Aegis", "Bulwark", "Colossus", "Vanguard", "Praetor", "Rampart", "Phalanx", "Centurion", "Overseer",
-            "RX-9", "MK-Z", "Unit-404", "AX-13", "Core-7", "NX-Prime", "Ω-12", "Xeno-5", "Proto-X", "Sentrix", "Java-99"
+            "RX-9", "MK-Z", "Unit-404", "AX-13", "Core-7", "NX-Prime", "Q-12", "Xeno-5", "Proto-X", "Sentrix", "Java-99"
     };
 
     String[] players = {
-            "🧑‍🚀 Maverick","🔥Blaze","⚡️Ace", "🎯 Striker", "🌀 Phantom", "🧠 Nova",
+            "🧑‍🚀 Maverick", "🔥Blaze", "⚡️Ace", "🎯 Striker", "🌀 Phantom", "🧠 Nova",
             "🏹 Archer", "💥 Raptor", "🌟 Titan", "🎮 Shadow"
     };
 
@@ -173,8 +170,10 @@ public class RockPaperScissors {
     int playerTieBreakerPts = 0;
     int robotTieBreakerPts = 0;
     int playerTieMove = 0;
-    int fans = random.nextInt(10000,50001);
-    int recordAttendance = random.nextInt(25000,50001);
+    int fans = random.nextInt(10000, 50001);
+    int recordAttendance = random.nextInt(25000, 50001);
+
+    boolean stillATie = true;
 
     void rpsMenu() {
         System.out.println("///////////////////");
@@ -188,10 +187,10 @@ public class RockPaperScissors {
         createPlayer();
 
         System.out.println("\n-------- MENU --------");
-        System.out.println("press 1) -> Play Game");
-        System.out.println("press 2) -> High Score");
-        System.out.println("press 3) -> How To Play");
-        System.out.println("press 4) -> Exit Game");
+        System.out.println("press (1) -> Play Game");
+        System.out.println("press (2) -> High Score");
+        System.out.println("press (3) -> How To Play");
+        System.out.println("press (4) -> Exit Game");
         System.out.println("----------------------");
 
         System.out.print("\nenter choice: ");
@@ -288,11 +287,10 @@ public class RockPaperScissors {
         switch (result) {
             case 11, 22, 33 -> {
                 draw++;
-                //System.out.println("tie -> no winner in ROUND " + currRound);
-                roundWinner(RoundResult.TIE);
                 playerTieBreakerPts++;
                 robotTieBreakerPts++;
-                tieBreaker();
+                tieBreaker(playerTieBreakerPts, robotTieBreakerPts);
+                roundWinner(RoundResult.TIE);
                 return RoundResult.TIE;
             }
 
@@ -337,10 +335,9 @@ public class RockPaperScissors {
         }
     }
 
-    void tieBreaker() {
+    void tieBreaker(int playerTieBreakerPts, int robotTieBreakerPts) {
         RoundResult tie = RoundResult.TIE;
-        System.out.println("\n*********** T I E  B R E A K E R ***********");
-        System.out.println("\nYou have entered into a TIE BREAKER...");
+        System.out.println("\n🏁 T I E  B R E A K E R 🏁");
         System.out.println("Win (+50 pts.) 😆 <-> Lose (-50 pts.) 😒");
         System.out.println("The choice is yours 🫵🏽\n");
 
@@ -352,37 +349,43 @@ public class RockPaperScissors {
             System.out.println("invalid move");
         }
 
-        System.out.println("\n- - - -🏁 ROUND " + currRound + " TIE BREAKER RESULTS 🏁- - - -");
+        System.out.println("\n🏁 ROUND " + currRound + " TIE BREAKER RESULTS 🏁");
         System.out.println(player + " chose " + rps[playerTieMove - 1]);
         System.out.println(robot + " chose " + rps[robotTieMove - 1]);
-        System.out.println("----------------------------------------");
+        System.out.println("-------------------------");
 
-        boolean stillATie = true;
+        // tie move logic
+        checkWinner(playerTieBreakerPts, robotTieBreakerPts);
 
-        while (stillATie) {
-            if (playerTieBreakerPts > robotTieBreakerPts) {
-                playerScore += doubleRoundPts;
-                robotScore -= doubleRoundPts;
-                System.out.println(player + " wins tie breaker");
-                System.out.println("points added: " + playerScore);
-                System.out.println("points lost: " + robotScore);
-                stillATie = false;
-                roundWinner(RoundResult.PLAYER);
-            } else if (robotTieBreakerPts > playerTieBreakerPts) {
-                robotScore += doubleRoundPts;
-                playerScore -= doubleRoundPts;
-                System.out.println(robot + " wins tie breaker");
-                System.out.println("points added: " + robotScore);
-                System.out.println("points lost: " + playerScore);
-                stillATie = false;
-                roundWinner(RoundResult.ROBOT);
-            } else if (playerTieBreakerPts == robotTieBreakerPts) {
-                System.out.println("Tie breaker still going....");
-            }
-            System.out.println("Tie breaker has been broken....");
+        if (playerTieBreakerPts > robotTieBreakerPts) {
+            playerScore += doubleRoundPts;
+            robotScore -= doubleRoundPts;
+            System.out.println(player + " wins tie breaker");
+            System.out.println("+" + doubleRoundPts + " points added...");
+            System.out.println(robot + " loses tie breaker");
+            System.out.println("-" + doubleRoundPts + " points reduced...");
+            System.out.println("*** SCORE ***");
+            System.out.println(player + ": " + playerScore);
+            System.out.println(robot + ": " + robotScore);
+            stillATie = false;
+            roundWinner(RoundResult.PLAYER);
+        } else if (robotTieBreakerPts > playerTieBreakerPts) {
+            robotScore += doubleRoundPts;
+            playerScore -= doubleRoundPts;
+            System.out.println(robot + " wins tie breaker");
+            System.out.println("+" + doubleRoundPts + " points added...");
+            System.out.println(player + " loses tie breaker");
+            System.out.println("-" + doubleRoundPts + " points reduced...");
+            System.out.println("*** SCORE ***");
+            System.out.println(robot + ": " + robotScore);
+            System.out.println(player + ": " + playerScore);
+            stillATie = false;
+            roundWinner(RoundResult.ROBOT);
+        } else {
+            System.out.println("Tie breaker still going....");
             roundWinner(RoundResult.TIE);
-            break;
         }
+        System.out.println("Tie breaker has been broken....");
     }
 
     void roundTie(int playerWinPoints, int robotWinPoints) {

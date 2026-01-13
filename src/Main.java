@@ -1,39 +1,32 @@
-import java.util.Random;
 import java.util.Scanner;
 
-void main() {
+public class Main {
 
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
+    public static void main(String[] args) {
 
-    boolean isRunning = true;
+        Scanner scanner = new Scanner(System.in);
 
-    RockPaperScissors rockPaperScissors = new RockPaperScissors();
-//    rockPaperScissors.viewAllCities();
-//    rockPaperScissors.viewAllPlayers();
-//    rockPaperScissors.viewAllRobots();
-//    rockPaperScissors.viewAllWorldEmojis();
+        boolean isRunning = true;
 
-    rockPaperScissors.rpsMenu();
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+        rockPaperScissors.rpsMenu();
 
-    // start game
-    while (isRunning) {
-        rockPaperScissors.createPlayer();
-        rockPaperScissors.playGame();
-        rockPaperScissors.scoreBoard();
+        while (isRunning) {
 
-        do {
-            System.out.print("play again? (yes/no): ");
-            String playAgain = scanner.nextLine();
+            rockPaperScissors.createPlayer();
+            rockPaperScissors.scoreBoard();
+
+            System.out.print("Play again? (yes/no): ");
+            String playAgain = scanner.nextLine().toLowerCase();
 
             if (playAgain.equals("y") || playAgain.equals("yes")) {
-                System.out.println("resetting game...");
+                System.out.println("Resetting game...\n");
             } else {
                 System.out.println("Thanks for playing!");
-                isRunning = false;
+                isRunning = false; // ✅ exit loop
             }
-        } while (isRunning);
+        }
 
-        scanner.close(); // close scanner
+        scanner.close();
     }
 }
