@@ -61,11 +61,24 @@ public class RockPaperScissors {
 
     String[] cities = {
             // United States
-            "🇺🇸 New York City, New York",
+            "🇺🇸 New York, New York",
             "🇺🇸 Los Angeles, California",
             "🇺🇸 Chicago, Illinois",
             "🇺🇸 Houston, Texas",
             "🇺🇸 Miami, Florida",
+            "🇺🇸 Atlanta, Georgia",
+            "🇺🇸 Dallas, Texas",
+            "🇺🇸 Austin, Texas",
+            "🇺🇸 San Francisco, California",
+            "🇺🇸 San Diego, California",
+            "🇺🇸 Seattle, Washington",
+            "🇺🇸 Denver, Colorado",
+            "🇺🇸 Phoenix, Arizona",
+            "🇺🇸 Las Vegas, Nevada",
+            "🇺🇸 New Orleans, Louisiana",
+            "🇺🇸 Nashville, Tennessee",
+            "🇺🇸 Boston, Massachusetts",
+            "🇺🇸 Washington, D.C.",
             "🇺🇸 Honolulu, Hawaii",
             "🇵🇷 San Juan, Puerto Rico",
 
@@ -280,7 +293,14 @@ public class RockPaperScissors {
         }
     }
 
-    String[] roundOutcomes = {"📄covers 🪨", "🪨beats ✂️", "✂️cuts 📄"};
+    String[] roundOutcomes = {
+            "📄covers 🪨",
+            "🪨beats ✂️",
+            "✂️cuts 📄",
+            "🪨((tie)) 🪨️",
+            "📄((tie)) 📄",
+            "✂️((tie)) ✂️",
+    };
 
     RoundResult checkWinner(int playerMove, int robotMove) {
         int result = (playerMove * 10 + robotMove);
@@ -292,6 +312,14 @@ public class RockPaperScissors {
                 tieBreakerRounds++;
                 tieBreaker(playerWinPoints, robotWinPoints);
                 roundWinner(RoundResult.TIE);
+
+                if (result == 11){
+                    System.out.println(roundOutcomes[3]);
+                } else if (result == 22){
+                    System.out.println(roundOutcomes[4]);
+                } else {
+                    System.out.println(roundOutcomes[5]);
+                }
                 return RoundResult.TIE;
             }
 
@@ -412,6 +440,7 @@ public class RockPaperScissors {
             stillATie = false;
             roundWinner(RoundResult.ROBOT);
         } else {
+            tieBreakerRounds++;
             System.out.println("\nTie breaker still going....");
             roundWinner(RoundResult.TIE);
         }
@@ -458,9 +487,9 @@ public class RockPaperScissors {
 
         if (numOfRounds == 1) {
             ordinal = ordinalSuffixes[0];
-        } else if (numOfRounds % 2 == 0) {
+        } else if (numOfRounds == 2) {
             ordinal = ordinalSuffixes[1];
-        } else if (numOfRounds % 3 == 0) {
+        } else if (numOfRounds == 3) {
             ordinal = ordinalSuffixes[2];
         } else {
             ordinal = ordinalSuffixes[3];
@@ -513,7 +542,8 @@ public class RockPaperScissors {
         System.out.println("🎯 Score   : " + robotScore + " pts.");
 
         System.out.println("\n🎰 Draws   : " + draw);
-        System.out.println("🏁 Tie Rounds   : " + tieBreakerRounds);
+        System.out.println("🏁 Tie Breakers   : " + tieBreakerRounds);
+
         System.out.println("🔔 Rounds  : " + (currRound - 1));
     }
 
