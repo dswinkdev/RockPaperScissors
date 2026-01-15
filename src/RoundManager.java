@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class RoundManager {
 
     private ArrayList<Round> rounds;
-    //RockPaperScissors rps = new RockPaperScissors();
 
     public RoundManager(){
         this.rounds = new ArrayList<>();

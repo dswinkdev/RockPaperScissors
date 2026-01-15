@@ -146,8 +146,6 @@ public class RockPaperScissors {
             "cpu", "player", "human", "name", "person", "blank", "nobody"
     };
 
-    String[] roundOutcomes = {"📄covers 🪨", "🪨beats ✂️", "✂️cuts 📄"};
-
     String playerName = "";
     String player = "";
     String robot = "🤖" + robots[random.nextInt(robots.length)];
@@ -282,6 +280,8 @@ public class RockPaperScissors {
         }
     }
 
+    String[] roundOutcomes = {"📄covers 🪨", "🪨beats ✂️", "✂️cuts 📄"};
+
     RoundResult checkWinner(int playerMove, int robotMove) {
         int result = (playerMove * 10 + robotMove);
 
@@ -301,6 +301,14 @@ public class RockPaperScissors {
                 playerWinPoints++;
                 playerTieBreakerPts++;
                 roundWinner(RoundResult.PLAYER);
+
+                if (result == 21){
+                    System.out.println(roundOutcomes[0]);
+                } else if (result == 13){
+                    System.out.println(roundOutcomes[1]);
+                } else {
+                    System.out.println(roundOutcomes[2]);
+                }
                 return RoundResult.PLAYER;
             }
 
@@ -310,6 +318,14 @@ public class RockPaperScissors {
                 robotWinPoints++;
                 robotTieBreakerPts++;
                 roundWinner(RoundResult.ROBOT);
+
+                if (result == 12){
+                    System.out.println(roundOutcomes[0]);
+                } else if (result == 31){
+                    System.out.println(roundOutcomes[1]);
+                } else {
+                    System.out.println(roundOutcomes[2]);
+                }
                 return RoundResult.ROBOT;
             }
 
@@ -322,16 +338,19 @@ public class RockPaperScissors {
     void roundWinner(RoundResult result) {
         switch (result) {
             case PLAYER -> {
-                //System.out.println("Round " + currRound + " winner -> " + player);
                 roundManager.addRound(new Round(currRound, player, playerScore, draw));
             }
             case ROBOT -> {
-                //System.out.println("Round " + currRound + " winner -> " + robot);
                 roundManager.addRound(new Round(currRound, robot, robotScore, draw));
             }
             case TIE -> {
-                //System.out.println("Round " + currRound + " -> tie");
-                roundManager.addRound(new Round(currRound, noWinner, noScore, draw));
+                if (playerTieBreakerPts > robotTieBreakerPts){
+                    roundManager.addRound(new Round(currRound, player, playerScore, draw, tieBreakerRounds));
+                } else if (robotTieBreakerPts > playerTieBreakerPts){
+                    roundManager.addRound(new Round(currRound, robot, robotScore, draw, tieBreakerRounds));
+                } else {
+                    roundManager.addRound(new Round(currRound, noWinner, noScore, draw, tieBreakerRounds));
+                }
             }
         }
     }
@@ -359,14 +378,14 @@ public class RockPaperScissors {
         System.out.println(robot + " chose " + rps[robotTieMove - 1]);
         System.out.println("-------------------------");
 
-        if (playerTieMove == robotTieMove && stillInTieBreaker){
-            RoundResult tie = RoundResult.TIE;
-            System.out.println("keep playing until winner is declared...");
-        }
+        // check winner logic
+        checkWinner(playerTieMove, robotTieMove);
+        checkTieWinner();
+        System.out.println("\nTie breaker has been broken....");
+        stillInTieBreaker = false;
+    }
 
-        // tie move logic
-        checkWinner(playerTieBreakerPts, robotTieBreakerPts);
-
+    void checkTieWinner(){
         if (playerTieBreakerPts > robotTieBreakerPts) {
             playerScore += doubleRoundPts;
             robotScore -= doubleRoundPts;
@@ -396,8 +415,6 @@ public class RockPaperScissors {
             System.out.println("\nTie breaker still going....");
             roundWinner(RoundResult.TIE);
         }
-        System.out.println("\nTie breaker has been broken....");
-        stillInTieBreaker = false;
     }
 
     void roundTie(int playerWinPoints, int robotWinPoints) {
