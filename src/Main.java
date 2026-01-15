@@ -1,32 +1,27 @@
 import java.util.Scanner;
 
-public class Main {
-
-    public static void main(String[] args) {
+public static void main(String[] args) {
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean isRunning = true;
-
-        RockPaperScissors rockPaperScissors = new RockPaperScissors();
         rockPaperScissors.rpsMenu();
+        rockPaperScissors.createPlayer();
 
-        while (isRunning) {
-
-            rockPaperScissors.createPlayer();
+        do {
+            rockPaperScissors.playGame();
             rockPaperScissors.scoreBoard();
 
-            System.out.print("Play again? (yes/no): ");
-            String playAgain = scanner.nextLine().toLowerCase();
+            System.out.print("play again: y/n");
+            String playAgain = scanner.nextLine();
 
-            if (playAgain.equals("y") || playAgain.equals("yes")) {
-                System.out.println("Resetting game...\n");
+            if (playAgain.equals("y") || playAgain.equals("yes")){
+                rockPaperScissors.resetGame(true);
             } else {
-                System.out.println("Thanks for playing!");
-                isRunning = false; // ✅ exit loop
+                rockPaperScissors.resetGame(false);
+                return;
             }
-        }
+        } while (true);
 
-        scanner.close();
     }
-}
+
