@@ -4,13 +4,13 @@ public static void main(String[] args) {
         RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
         Scanner scanner = new Scanner(System.in);
-
         rockPaperScissors.rpsMenu();
         rockPaperScissors.createPlayer();
 
         do {
             rockPaperScissors.playGame();
             rockPaperScissors.scoreBoard();
+            rockPaperScissors.showSponsors();
 
             System.out.print("play again: y/n");
             String playAgain = scanner.nextLine();
