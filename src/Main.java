@@ -3,7 +3,7 @@ import java.util.Scanner;
 public static void main(String[] args) {
         RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
-        Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
         rockPaperScissors.rpsMenu();
         rockPaperScissors.createPlayer();
 
