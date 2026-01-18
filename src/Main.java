@@ -3,13 +3,13 @@ import java.util.Scanner;
 public static void main(String[] args) {
     RockPaperScissors rockPaperScissors = new RockPaperScissors();
 
-    //view all
 //    rockPaperScissors.viewAllPlayers();
 //    rockPaperScissors.viewAllWorldEmojis();
 //    rockPaperScissors.viewAllCities();
 //    rockPaperScissors.viewAllRobots();
 //    rockPaperScissors.viewRestrictedNames();
 //    rockPaperScissors.viewAllVenues();
+//    rockPaperScissors.venueCount();
 
     Scanner scanner = new Scanner(System.in);
     rockPaperScissors.rpsMenu();
