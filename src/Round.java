@@ -35,6 +35,8 @@ public class Round {
         return roundLoser;
     }
 
+    RockPaperScissors rockPaperScissors = new RockPaperScissors();
+
     @Override
     public String toString() {
         if (roundDraw == 0 && roundTie == 0) {
