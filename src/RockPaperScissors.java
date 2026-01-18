@@ -144,7 +144,7 @@ public class RockPaperScissors {
     };
 
     // Famous Streets
-    String[] usStreets = {
+    String[] famousStreets = {
             "🏙️ Main Street",
             "🎭 Broadway",
             "🗽 Fifth Avenue",
@@ -168,7 +168,7 @@ public class RockPaperScissors {
             "🏛️ Congress Avenue"
     };
 
-    // ficitonal venues
+    // fictional venues
     String[] fictionalVenues = {
             // 🌀 Fictional / Battle World Inspired by Texas & Atlanta Roads
             "🌀 Katy Crossing, Ironfall State",
@@ -270,27 +270,27 @@ public class RockPaperScissors {
 
     // APPLE
     String[] appleVenues = {
-            "🍎 MacBook Way",
-            "🍎 MacBook Pro Drive",
-            "🍎 Mac Studio Circle",
-            "🍎 iMac Avenue",
-            "🍎 iPad Air Road",
-            "🍎 iPad Pro Parkway",
-            "🍎 AirPods Alley",
-            "🍎 AirPods Max Lane",
-            "🍎 Apple Watch Way",
-            "🍎 Ultra Loop Boulevard",
-            "🍎 Vision Pro Drive",
-            "🍎 M-Series Avenue",
-            "🍎 Neural Engine Way",
-            "🍎 Retina Display Road",
-            "🍎 Liquid Retina Lane",
-            "🍎 Thunderbolt Pass",
-            "🍎 Magic Keyboard Court",
-            "🍎 Space Gray Street",
-            "🍎 Midnight Avenue",
-            "🍎 Aluminum Unibody Way",
-            "🍎 One More Thing Blvd"
+            "🖥️ MacBook Way",
+            "🖥️ MacBook Pro Drive",
+            "🖥️ Mac Studio Circle",
+            "🖥️ iMac Avenue",
+            "🖥️ iPad Air Road",
+            "🖥️ iPad Pro Parkway",
+            "🖥️ AirPods Alley",
+            "🖥️ AirPods Max Lane",
+            "🖥️ Apple Watch Way",
+            "🖥️ Ultra Loop Boulevard",
+            "🖥️ Vision Pro Drive",
+            "🖥️ M-Series Avenue",
+            "🖥️ Neural Engine Way",
+            "🖥️ Retina Display Road",
+            "🖥️ Liquid Retina Lane",
+            "🖥️ Thunderbolt Pass",
+            "🖥️ Magic Keyboard Court",
+            "🖥️ Space Gray Street",
+            "🖥️ Midnight Avenue",
+            "🖥️ Aluminum Unibody Way",
+            "🖥️ One More Thing Blvd"
     };
 
     String[] techVenues = {
@@ -314,7 +314,7 @@ public class RockPaperScissors {
             "🚀 Launchpad Arena",
             "🧩 Modular Systems Stadium",
             "⚡ Hyperlink Pavilion",
-            "🧭 Digital Frontier Park"
+            "🧭 Digital Frontier Park",
     };
 
     // different locations for games 🛫
@@ -324,15 +324,16 @@ public class RockPaperScissors {
     String nfl = nflVenues[random.nextInt(nflVenues.length)];
     String apple = appleVenues[random.nextInt(appleVenues.length)];
     String tech = techVenues[random.nextInt(nflVenues.length)];
+    String usStreet = famousStreets[random.nextInt(famousStreets.length)];
     String fictional = fictionalVenues[random.nextInt(fictionalVenues.length)];
 
-    String[] battleLocations = {city, mlb, nba, nfl, apple, tech, fictional};
+    String[] battleLocations = {city, mlb, nba, nfl, apple, tech, usStreet, fictional};
 
     String venueForMatchup = battleLocations[random.nextInt(battleLocations.length)];
 
     // names that can't be used
     String[] restrictedPlayerNames = {
-            "cpu", "player", "human", "name", "person", "blank", "nobody"
+            "cpu", "player", "human", "name", "person", "blank", "nobody", "matchup", "game"
     };
 
     String[] sponsors = {
@@ -790,8 +791,8 @@ public class RockPaperScissors {
             scanner.nextLine(); // consume new line
         }
         System.out.println("\n-------------------");
-        System.out.println((numOfRounds == 1) ? "⭐️Best of " + numOfRounds + " Round⭐️" :
-                "⭐️Best of " + numOfRounds + " Rounds⭐️");
+        System.out.println((numOfRounds == 1) ? "⭐️Best of " + numOfRounds + " Round ⭐️" :
+                "⭐️Best of " + numOfRounds + " Rounds ⭐️");
         System.out.println("-------------------");
     }
 
@@ -887,12 +888,16 @@ public class RockPaperScissors {
         System.out.println("🏆 Win Pts : " + robotWinPoints);
         System.out.println("🎯 Score   : " + df.format(robotScore) + " pts.");
 
-        System.out.println("\n🎰 Draws          : " + draw);
+        System.out.println("\n*** MATCHUP BREAKDOWN ***");
+        System.out.println("🎰 Draws          : " + draw);
         System.out.println("🏁 Tie Breakers   : " + tieBreakerRounds);
         System.out.println("⚡️ Game Rounds    : " + (currRound - 1));
 
         int totalAmountOfRounds = (tieBreakerRounds + currRound) - 1;
+        int totalPointsScored = playerScore + robotScore;
         System.out.println("🔔 Total Rounds   : " + totalAmountOfRounds);
+        System.out.println("💯 Total Points   : " + df.format(totalPointsScored));
+        System.out.println("**************************");
 
         showContrastBar(playerWinPoints, robotWinPoints);
     }
@@ -993,7 +998,7 @@ public class RockPaperScissors {
     }
 
     void viewAllCities() {
-        System.out.println("<----- BATTLE LOCATIONS  ----->");
+        System.out.println("<----- RANDOM BATTLE LOCATIONS  ----->"); // picks one for each in array
         for (int i = 0; i < battleLocations.length; i++) {
             System.out.println("(" + (i + 1) + ") " + battleLocations[i]);
         }
@@ -1004,6 +1009,53 @@ public class RockPaperScissors {
         for (int i = 0; i < worldEmojis.length; i++) {
             System.out.println("(" + (i + 1) + ") " + worldEmojis[i]);
         }
+    }
+
+    void viewRestrictedNames() {
+        System.out.println("<----- RESTRICTED NAMES  ----->");
+        for (int i = 0; i < restrictedPlayerNames.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + restrictedPlayerNames[i]);
+        }
+    }
+
+    int venues = mlbVenues.length + nflVenues.length + nbaVenues.length +
+            appleVenues.length + worldCities.length + techVenues.length +
+            fictionalVenues.length + famousStreets.length + worldCities.length;
+
+
+    void viewAllVenues() {
+        System.out.println("<----- ALL BATTLE VENUES  ----->");
+        for (int i = 0; i < mlbVenues.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + mlbVenues[i]);
+        }
+        System.out.println("-------------------");
+        for (int i = 0; i < nbaVenues.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + nbaVenues[i]);
+        }
+        System.out.println("-------------------");
+        for (int i = 0; i < nflVenues.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + nflVenues[i]);
+        }
+        System.out.println("-------------------");
+        for (int i = 0; i < appleVenues.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + appleVenues[i]);
+        }
+        System.out.println("-------------------");
+        for (int i = 0; i < techVenues.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + techVenues[i]);
+        }
+        System.out.println("-------------------");
+        for (int i = 0; i < famousStreets.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + famousStreets[i]);
+        }
+        System.out.println("-------------------");
+        for (int i = 0; i < worldCities.length; i++) {
+            System.out.println("(" + (i + 1) + ") " + worldCities[i]);
+        }
+        System.out.println("-------------------");
+        String randomWorldEmoji = worldEmojis[random.nextInt(worldEmojis.length)];
+        System.out.println(randomWorldEmoji + venues + " total venues");
+        System.out.println("-------------------");
     }
 }
 
