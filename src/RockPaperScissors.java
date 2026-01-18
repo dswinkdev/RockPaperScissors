@@ -417,7 +417,7 @@ public class RockPaperScissors {
 
     void playerMatchUp() {
         System.out.println("\n----------- MATCHUP -----------");
-        System.out.println(player + " (YOU) vs. " + robot + " (AI)");
+        System.out.println(player + " (YOU) vs. " + robot + " (ROBOT)");
         System.out.println("---------------⚔️--------------");
         System.out.println(venueForMatchup);
     }
@@ -472,7 +472,7 @@ public class RockPaperScissors {
                     System.out.println("\n- - - -🏁 ROUND " + currRound + " RESULTS 🏁- - - -");
                     System.out.println(player + " chose " + rps[playerMove - 1]);
                     System.out.println(robot + " chose " + rps[robotMove - 1]);
-                    System.out.println("----------------------------------------");
+                    System.out.println("-----------------------------------");
 
                     // check winner logic
                     checkWinner(playerMove, robotMove);
@@ -581,10 +581,10 @@ public class RockPaperScissors {
 
     void tieBreaker(int playerTieBreakerPts, int robotTieBreakerPts) {
         System.out.println("\n🏁  T I E   B R E A K E R  🏁");
-        System.out.println("------------------------------------------");
-        System.out.println("WIN   →  +" + doubleRoundPts + " pts  🤑");
+        System.out.println("-----------------------------------");
+        System.out.println("BREAK THE TIE >>> WIN +" + doubleRoundPts + " pts  🤑");
         //System.out.println("LOSE  →  -" + doubleRoundPts + " pts  😡");
-        System.out.println("------------------------------------------");
+        System.out.println("-----------------------------------");
         System.out.println("The choice is yours 🫵🏽\n");
 
         System.out.print("enter choice: ");
@@ -726,7 +726,7 @@ public class RockPaperScissors {
         if (startOver) {
             System.out.println("resetting gameplay...");
         } else {
-            System.out.println("Thanks for playing!👋🏽");
+            System.out.println("👋🏽Thanks for playing " + playerName + "!");
         }
     }
 
@@ -790,10 +790,12 @@ public class RockPaperScissors {
             numOfRounds = scanner.nextInt();
             scanner.nextLine(); // consume new line
         }
-        System.out.println("\n-------------------");
-        System.out.println((numOfRounds == 1) ? "⭐️Best of " + numOfRounds + " Round ⭐️" :
-                "⭐️Best of " + numOfRounds + " Rounds ⭐️");
-        System.out.println("-------------------");
+        System.out.println("\n----------------------");
+        System.out.println((numOfRounds == 1) ? "🔔 Best of " + numOfRounds + " Round 🔔️" :
+                "🔔️ Best of " + numOfRounds + " Rounds 🔔️");
+        System.out.println("----------------------");
+        System.out.println("🔔️Round Win: " + roundWinPts + " pts.");
+        System.out.println("🏁️Tie Breaker: " + doubleRoundPts + " pts.");
     }
 
     void declareWinner() {
@@ -807,7 +809,7 @@ public class RockPaperScissors {
             //winnerPlate(robot);
         } else {
             System.out.println("\n******* NO WINNER *******");
-            System.out.println("🤝 Game ends in a TIE");
+            System.out.println("🤝 Game ended in a TIE");
         }
         //System.out.println("***************************");
     }
@@ -888,7 +890,7 @@ public class RockPaperScissors {
         System.out.println("🏆 Win Pts : " + robotWinPoints);
         System.out.println("🎯 Score   : " + df.format(robotScore) + " pts.");
 
-        System.out.println("\n*** MATCHUP BREAKDOWN ***");
+        System.out.println("\n*** MATCHUP ♦ BREAKDOWN ***");
         System.out.println("🎰 Draws          : " + draw);
         System.out.println("🏁 Tie Breakers   : " + tieBreakerRounds);
         System.out.println("⚡️ Game Rounds    : " + (currRound - 1));
@@ -897,7 +899,7 @@ public class RockPaperScissors {
         int totalPointsScored = playerScore + robotScore;
         System.out.println("🔔 Total Rounds   : " + totalAmountOfRounds);
         System.out.println("💯 Total Points   : " + df.format(totalPointsScored));
-        System.out.println("**************************");
+        System.out.println("***************************");
 
         showContrastBar(playerWinPoints, robotWinPoints);
     }
